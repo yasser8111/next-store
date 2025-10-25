@@ -3,17 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Next Store - متجر نكست</title>
+    <title>تفاصيل المنتج - Next Store</title>
     <link rel="icon" type="image/x-icon" href="../public/img/logo.webp" />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="./css/style.css" />
-    <link rel="stylesheet" href="./css/home.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/product-details.css" />
 
     <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Swiper CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
   </head>
   <body>
@@ -25,15 +31,15 @@
           <img
             src="../public/img/logo.webp"
             alt="Next Store Logo"
-            onclick="window.location.href='./index.html#home'"
+            onclick="window.location.href='../index.html#home'"
           />
         </div>
 
         <!-- قائمة التنقل -->
         <ul class="nav-menu">
-          <li><a href="./index.html#home">الرئيسية</a></li>
-          <li><a href="#products">تيشيرتات</a></li>
-          <li><a href="#about">من نحن</a></li>
+          <li><a href="../index.html#home">الرئيسية</a></li>
+          <li><a href="../index.html#products">تيشيرتات</a></li>
+          <li><a href="../index.html#about">من نحن</a></li>
           <li><a href="#contact">اتصل بنا</a></li>
         </ul>
 
@@ -43,12 +49,10 @@
           <div class="user-avatar" id="user-avatar" style="display: none">
             <img src="../public/img/user-placeholder.webp" alt="User" />
             <div class="user-dropdown">
-              <a href="./pages/profile.html"
+              <a href="./profile.html"
                 ><i class="fa-solid fa-user"></i> الملف الشخصي</a
               >
-              <a href="./pages/orders.html"
-                ><i class="fa-solid fa-box"></i> طلباتي</a
-              >
+              <a href="./orders.html"><i class="fa-solid fa-box"></i> طلباتي</a>
               <a href="#" id="logout-btn"
                 ><i class="fa-solid fa-right-from-bracket"></i> تسجيل خروج</a
               >
@@ -56,12 +60,12 @@
           </div>
 
           <!-- زر تسجيل الدخول (يظهر عند عدم تسجيل الدخول) -->
-          <a href="./pages/auth.html" class="auth-btn" id="auth-btn">
+          <a href="./auth.html" class="auth-btn" id="auth-btn">
             <i class="fa-solid fa-user"></i>
           </a>
 
           <!-- زر السلة -->
-          <a href="./pages/cart.html" class="cart-btn">
+          <a href="./cart.html" class="cart-btn">
             <i class="fa-solid fa-cart-shopping"></i>
             <span class="cart-count"></span>
           </a>
@@ -76,55 +80,14 @@
       </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero" aria-labelledby="home-heading">
-      <div class="hero-bg" aria-hidden="true"></div>
-      <div class="hero-content">
-        <h1 id="home-heading" class="hero-title">تيشيرتات تعبر عنك</h1>
-        <p class="hero-subtitle">
-          اكتشف مجموعة التيشيرتات المميزة بتصاميم فريدة وجودة لا تضاهى
-        </p>
-        <a href="#products" class="hero-btn" role="button">اكتشف المجموعة</a>
-      </div>
-
-      <a href="#products"
-        class="scroll-down-circle"
-        aria-label="انتقل للأسفل"
-        data-target="#products"
-      >
-        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-    </a>
-    </section>
-
-    <!-- Products Section -->
-    <section id="products" class="products container">
-      <div class="section-header">
-        <h2 class="section-title">تيشيرتاتنا</h2>
-        <p class="section-subtitle">خصم 10% علا المشتريات الاكثر من 30الف ر.ي</p>
-        <hr class="section-divider" />
-      </div>
-
-      <!-- Loading State -->
-      <div class="loading-container" id="loading-container">
-        <div class="loading-spinner"></div>
-        <p>جاري تحميل المنتجات...</p>
-      </div>
-
-      <!-- Products Grid -->
-      <div class="product-grid" id="product-grid">
-        <!-- Products will be loaded dynamically -->
-      </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-      <div class="container">
-        <h2 class="section-title">من نحن</h2>
-        <p class="about-text">
-          انطلقنا بفكرة بسيطة: تقديم تيشيرتات مبتكرة تجمع بين الجودة العالية
-          والتصاميم العصرية، لتعكس شخصية كل عميل بأسلوبه الخاص. نؤمن بأن الأناقة
-          تبدأ بالراحة، وأن التصميم يعبر عن الهوية.
-        </p>
+    <!-- Product Details Section -->
+    <section class="product-details container">
+      <div id="product-details-container">
+        <!-- Loading State -->
+        <div class="loading-container" id="loading-container">
+          <div class="loading-spinner"></div>
+          <p>جاري تحميل المنتجات...</p>
+        </div>
       </div>
     </section>
 
@@ -159,9 +122,9 @@
             <li><a href="../index.html#home">الرئيسية</a></li>
             <li><a href="../index.html#products">تيشيرتات</a></li>
             <li><a href="../index.html#about">من نحن</a></li>
-            <li><a href="./pages/cart.html">سلة التسوق</a></li>
-            <li><a href="./pages/terms.html">الشروط والأحكام</a></li>
-            <li><a href="./pages/customize-details.html">صمّم تيشيرتك</a></li>
+            <li><a href="./cart.html">سلة التسوق</a></li>
+            <li><a href="./terms.html">الشروط والأحكام</a></li>
+            <li><a href="./customize-details.html">صمّم تيشيرتك</a></li>
           </ul>
         </div>
 
@@ -222,7 +185,8 @@
     </footer>
 
     <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script type="module" src="../scripts/script.js"></script>
-    <script type="module" src="../scripts/home.js"></script>
+    <script type="module" src="../scripts/product-details.js"></script>
   </body>
 </html>
