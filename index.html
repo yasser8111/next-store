@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Next Store - متجر نكست</title>
+    <link rel="icon" type="image/x-icon" href="../public/img/logo.webp" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/home.css" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav id="navbar" class="navbar top">
+      <div class="nav-container">
+        <!-- الشعار -->
+        <div class="logo">
+          <img
+            src="../public/img/logo.webp"
+            alt="Next Store Logo"
+            onclick="window.location.href='./index.html#home'"
+          />
+        </div>
+
+        <!-- قائمة التنقل -->
+        <ul class="nav-menu">
+          <li><a href="./index.html#home">الرئيسية</a></li>
+          <li><a href="#products">تيشيرتات</a></li>
+          <li><a href="#about">من نحن</a></li>
+          <li><a href="#contact">اتصل بنا</a></li>
+        </ul>
+
+        <!-- الأزرار والدوائر -->
+        <div class="nav-buttons">
+          <!-- دائرة المستخدم (تظهر عند تسجيل الدخول) -->
+          <div class="user-avatar" id="user-avatar" style="display: none">
+            <img src="../public/img/user-placeholder.webp" alt="User" />
+            <div class="user-dropdown">
+              <a href="./pages/profile.html"
+                ><i class="fa-solid fa-user"></i> الملف الشخصي</a
+              >
+              <a href="./pages/orders.html"
+                ><i class="fa-solid fa-box"></i> طلباتي</a
+              >
+              <a href="#" id="logout-btn"
+                ><i class="fa-solid fa-right-from-bracket"></i> تسجيل خروج</a
+              >
+            </div>
+          </div>
+
+          <!-- زر تسجيل الدخول (يظهر عند عدم تسجيل الدخول) -->
+          <a href="./pages/auth.html" class="auth-btn" id="auth-btn">
+            <i class="fa-solid fa-user"></i>
+          </a>
+
+          <!-- زر السلة -->
+          <a href="./pages/cart.html" class="cart-btn">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-count"></span>
+          </a>
+
+          <!-- زر القائمة المتنقلة (للجوال) -->
+          <button class="nav-toggle" aria-label="فتح القائمة">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero" aria-labelledby="home-heading">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-content">
+        <h1 id="home-heading" class="hero-title">تيشيرتات تعبر عنك</h1>
+        <p class="hero-subtitle">
+          اكتشف مجموعة التيشيرتات المميزة بتصاميم فريدة وجودة لا تضاهى
+        </p>
+        <a href="#products" class="hero-btn" role="button">اكتشف المجموعة</a>
+      </div>
+
+      <a href="#products"
+        class="scroll-down-circle"
+        aria-label="انتقل للأسفل"
+        data-target="#products"
+      >
+        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+    </a>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products container">
+      <div class="section-header">
+        <h2 class="section-title">تيشيرتاتنا</h2>
+        <p class="section-subtitle">خصم 10% علا المشتريات الاكثر من 30الف ر.ي</p>
+        <hr class="section-divider" />
+      </div>
+
+      <!-- Loading State -->
+      <div class="loading-container" id="loading-container">
+        <div class="loading-spinner"></div>
+        <p>جاري تحميل المنتجات...</p>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="product-grid" id="product-grid">
+        <!-- Products will be loaded dynamically -->
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+      <div class="container">
+        <h2 class="section-title">من نحن</h2>
+        <p class="about-text">
+          انطلقنا بفكرة بسيطة: تقديم تيشيرتات مبتكرة تجمع بين الجودة العالية
+          والتصاميم العصرية، لتعكس شخصية كل عميل بأسلوبه الخاص. نؤمن بأن الأناقة
+          تبدأ بالراحة، وأن التصميم يعبر عن الهوية.
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+      <div class="footer-container">
+        <!-- Column 1: Brand & Description -->
+        <div class="footer-col">
+          <h3>متجر نكست</h3>
+          <p>
+            نقدّم لك أفضل خامات القطن مع تصاميم عصرية تجمع بين الراحة والأناقة.
+            نحن نؤمن بأن الأناقة تبدأ بالراحة، وأن التصميم يعبر عن الهوية.
+          </p>
+
+          <!-- Payment Methods -->
+          <!-- <div class="payment-methods">
+                <h5>طرق الدفع المدعومة:</h5>
+                <div class="payment-icons">
+                    <div class="payment-icon">VISA</div>
+                    <div class="payment-icon">MC</div>
+                    <div class="payment-icon">MADA</div>
+                    <div class="payment-icon">APPLE</div>
+                    <div class="payment-icon">STC</div>
+                </div>
+            </div> -->
+        </div>
+
+        <!-- Column 2: Quick Links -->
+        <div class="footer-col">
+          <h4>روابط سريعة</h4>
+          <ul>
+            <li><a href="../index.html#home">الرئيسية</a></li>
+            <li><a href="../index.html#products">تيشيرتات</a></li>
+            <li><a href="../index.html#about">من نحن</a></li>
+            <li><a href="./pages/cart.html">سلة التسوق</a></li>
+            <li><a href="./pages/terms.html">الشروط والأحكام</a></li>
+            <li><a href="./pages/customize-details.html">صمّم تيشيرتك</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Contact Info -->
+        <div class="footer-col">
+          <h4>تواصل معنا</h4>
+          <div class="contact-info">
+            <div class="contact-item">
+              <i class="fa-solid fa-envelope"></i>
+              <span>hello@nextstore.com</span>
+            </div>
+            <div class="contact-item">
+              <i class="fa-solid fa-phone"></i>
+              <span>+966 50 000 0000</span>
+            </div>
+            <div class="contact-item">
+              <i class="fa-solid fa-location-dot"></i>
+              <span> اليمن - حضرموت - المكلا </span>
+            </div>
+            <div class="contact-item">
+              <i class="fa-solid fa-clock"></i>
+              <span>٢٤/٧ خدمة العملاء</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 4: Social Media -->
+        <div class="footer-col">
+          <h4>تابعنا</h4>
+          <p>كن جزءاً من مجتمعنا وتابع آخر التحديثات</p>
+          <div class="social-icons">
+            <a href="#" class="facebook" aria-label="Facebook">
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a href="#" class="instagram" aria-label="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="#" class="twitter" aria-label="Twitter">
+              <i class="fa-brands fa-twitter"></i>
+            </a>
+            <a href="#" class="whatsapp" aria-label="WhatsApp">
+              <i class="fa-brands fa-whatsapp"></i>
+            </a>
+            <a href="#" class="tiktok" aria-label="TikTok">
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <p>
+          <i class="fa-regular fa-copyright"></i>
+          ٢٠٢٤ Next Store. جميع الحقوق محفوظة.
+        </p>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script type="module" src="../scripts/script.js"></script>
+    <script type="module" src="../scripts/home.js"></script>
+  </body>
+</html>
