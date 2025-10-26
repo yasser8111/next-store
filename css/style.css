@@ -208,34 +208,31 @@ select {
   color: var(--text-light);
 }
 
-/* دائرة المستخدم */
+/* تحديث تنسيق user-avatar */
 .user-avatar {
   position: relative;
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  overflow: hidden;
+  overflow: visible; /* تغيير من hidden إلى visible */
   border: 2px solid var(--border-color);
   cursor: pointer;
   transition: var(--transition);
-}
-
-.user-avatar:hover {
-  border-color: var(--primary-color);
-  transform: scale(1.05);
+  display: none; /* سيتم التحكم بالعرض عبر JavaScript */
 }
 
 .user-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 50%;
 }
 
-/* القائمة المنسدلة للمستخدم */
+/* تحسين القائمة المنسدلة */
 .user-dropdown {
   position: absolute;
-  top: 100%;
-  left: 0;
+  top: calc(100% + 10px);
+  right: 0;
   width: 200px;
   background: var(--bg-primary);
   border-radius: var(--border-radius);
@@ -244,8 +241,9 @@ select {
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
-  transition: var(--transition);
+  transition: all 0.3s ease;
   z-index: 1001;
+  margin-top: 10px; /* إضافة مسافة */
 }
 
 .user-avatar:hover .user-dropdown {
@@ -262,6 +260,8 @@ select {
   color: var(--text-primary);
   font-weight: 500;
   transition: var(--transition);
+  border: none;
+  text-decoration: none;
 }
 
 .user-dropdown a:hover {
@@ -272,6 +272,61 @@ select {
 .user-dropdown a i {
   width: 20px;
   text-align: center;
+}
+
+/* قسم اسم المستخدم في القائمة */
+.user-name {
+  padding: 0.8rem 1rem;
+  font-weight: bold;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* زر تسجيل الدخول */
+.auth-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  border-radius: 50%;
+  font-weight: 600;
+  transition: var(--transition);
+  width: 40px;
+  height: 40px;
+  text-decoration: none;
+}
+
+.auth-btn:hover {
+  background: var(--text-light);
+  transform: scale(1.05);
+}
+
+/* زر تسجيل الدخول */
+.auth-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  border-radius: 50%;
+  font-weight: 600;
+  transition: var(--transition);
+  width: 40px;
+  height: 40px;
+  text-decoration: none;
+}
+
+.auth-btn:hover {
+  background: var(--text-light);
+  transform: scale(1.05);
 }
 
 /* زر تسجيل الدخول */
@@ -760,7 +815,7 @@ select {
     width: calc(100vw - 2rem);
     right: 1rem;
   }
-}
+
 
 /* ===== ACCESSIBILITY ===== */
 @media (prefers-reduced-motion: reduce) {

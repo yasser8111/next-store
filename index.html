@@ -37,12 +37,12 @@
           <li><a href="#contact">اتصل بنا</a></li>
         </ul>
 
-        <!-- الأزرار والدوائر -->
         <div class="nav-buttons">
-          <!-- دائرة المستخدم (تظهر عند تسجيل الدخول) -->
+          <!-- دائرة المستخدم -->
           <div class="user-avatar" id="user-avatar" style="display: none">
-            <img src="../public/img/user-placeholder.webp" alt="User" />
+            <img src="./img/user-placeholder.webp" alt="User" />
             <div class="user-dropdown">
+              <div class="user-name">اسم المستخدم</div>
               <a href="./pages/profile.html"
                 ><i class="fa-solid fa-user"></i> الملف الشخصي</a
               >
@@ -55,7 +55,7 @@
             </div>
           </div>
 
-          <!-- زر تسجيل الدخول (يظهر عند عدم تسجيل الدخول) -->
+          <!-- زر تسجيل الدخول -->
           <a href="./pages/auth.html" class="auth-btn" id="auth-btn">
             <i class="fa-solid fa-user"></i>
           </a>
@@ -63,10 +63,10 @@
           <!-- زر السلة -->
           <a href="./pages/cart.html" class="cart-btn">
             <i class="fa-solid fa-cart-shopping"></i>
-            <span class="cart-count"></span>
+            <span class="cart-count">0</span>
           </a>
 
-          <!-- زر القائمة المتنقلة (للجوال) -->
+          <!-- زر القائمة المتنقلة -->
           <button class="nav-toggle" aria-label="فتح القائمة">
             <span class="bar"></span>
             <span class="bar"></span>
@@ -76,7 +76,7 @@
       </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section  -->
     <section id="home" class="hero" aria-labelledby="home-heading">
       <div class="hero-bg" aria-hidden="true"></div>
       <div class="hero-content">
@@ -87,20 +87,23 @@
         <a href="#products" class="hero-btn" role="button">اكتشف المجموعة</a>
       </div>
 
-      <a href="#products"
+      <a
+        href="#products"
         class="scroll-down-circle"
         aria-label="انتقل للأسفل"
         data-target="#products"
       >
         <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-    </a>
+      </a>
     </section>
 
     <!-- Products Section -->
     <section id="products" class="products container">
       <div class="section-header">
         <h2 class="section-title">تيشيرتاتنا</h2>
-        <p class="section-subtitle">خصم 10% علا المشتريات الاكثر من 30الف ر.ي</p>
+        <p class="section-subtitle">
+          خصم 10% علا المشتريات الاكثر من 30الف ر.ي
+        </p>
         <hr class="section-divider" />
       </div>
 

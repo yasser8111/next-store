@@ -26,7 +26,7 @@ export const getImageUrl = (imagePath) => {
     return "./public/img/placeholder.webp";
   }
 
-  console.log("Processing image path:", imagePath);
+  // console.log("Processing image path:", imagePath);
 
   // Cloudinary full URL
   if (imagePath.includes("res.cloudinary.com")) {
@@ -42,7 +42,7 @@ export const getImageUrl = (imagePath) => {
 
   // Everything else is Cloudinary filename
   const fullUrl = `https://res.cloudinary.com/dxbelrmq1/image/upload/${imagePath}`;
-  console.log("Full URL:", fullUrl);
+  // console.log("Full URL:", fullUrl);
   return fullUrl;
 };
 /**
