@@ -51,49 +51,33 @@ export function showNotification(message, type = "info", duration = 4000) {
 // =====================================================
 // Cart Management Functions
 // =====================================================
-function updateMobileCartCounter() {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-  const mobileCounter = document.querySelector(".cart-counter-mobile");
-
-  if (mobileCounter) {
-    mobileCounter.textContent = totalItems;
-    mobileCounter.style.display = totalItems > 0 ? "flex" : "none";
-  }
-}
 
 export function updateCartIcon() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-  const cartIcons = document.querySelectorAll(".cart-icon");
-  cartIcons.forEach((icon) => {
-    const oldCounter = icon.querySelector(".cart-counter");
-    if (oldCounter) oldCounter.remove();
-
+  updateAllCounters(totalItems);
+}
+function updateAllCounters(totalItems) {
+  const elements = document.querySelectorAll(
+    ".cart-icon, .hamburger-menu, .cart-counter-mobile, .mobile-nav-link-cart"
+  );
+  elements.forEach((element) => {
+    const existingCounter = element.querySelector(".cart-counter");
+    if (existingCounter) {
+      existingCounter.remove();
+    }
     if (totalItems > 0) {
       const counter = document.createElement("span");
       counter.className = "cart-counter";
       counter.textContent = totalItems;
-      counter.style.cssText = `
-        position: absolute;
-        top: -8px;
-        right: -8px;
-        background: #e74c3c;
-        color: white;
-        border-radius: 50%;
-        width: 20px;
-        height: 20px;
-        font-size: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-      `;
-      icon.style.position = "relative";
-      icon.appendChild(counter);
+      element.style.position = "relative";
+      element.appendChild(counter);
+    }
+    if (element.classList.contains("cart-counter-mobile")) {
+      element.style.display = totalItems > 0 ? "flex" : "none";
+      element.textContent = totalItems;
     }
   });
-  updateMobileCartCounter();
 }
 
 // =====================================================
@@ -110,12 +94,19 @@ function initMobileMenu() {
       icon.classList.toggle("fa-bars", !isOpen);
       icon.classList.toggle("fa-times", isOpen);
       this.classList.toggle("active");
+
+      // تحديث العداد عند فتح/إغلاق القائمة
+      updateCartIcon();
     });
 
     document.querySelectorAll(".mobile-nav-link").forEach((link) => {
       link.addEventListener("click", function () {
         mobileMenu.classList.remove("active");
-        hamburger.querySelector("i").classList.replace("fa-times", "fa-bars");
+        const hamburger = document.querySelector(".hamburger-menu");
+        if (hamburger) {
+          hamburger.querySelector("i").classList.replace("fa-times", "fa-bars");
+          hamburger.classList.remove("active");
+        }
       });
     });
   }
@@ -140,11 +131,12 @@ function updateActiveLinks() {
           linkHref === "./")
       ) {
         link.classList.add("active");
-      }
-      else if (linkPage === currentPage) {
+      } else if (linkPage === currentPage) {
         link.classList.add("active");
-      }
-      else if (linkHref.startsWith("#") && window.location.hash === linkHref) {
+      } else if (
+        linkHref.startsWith("#") &&
+        window.location.hash === linkHref
+      ) {
         link.classList.add("active");
       }
     }
@@ -162,6 +154,8 @@ async function loadComponent(elementId, filePath) {
     if (elementId === "header") {
       initMobileMenu();
       updateActiveLinks();
+      // تحديث أيقونة السلة بعد تحميل الهيدر
+      setTimeout(updateCartIcon, 100);
     }
   } catch (error) {
     console.error(`Error loading ${filePath}:`, error);
@@ -176,7 +170,20 @@ function initializeApp() {
   loadComponent("header", "./components/header.html");
   loadComponent("footer", "./components/footer.html");
 
+  // تحديث أيقونة السلة فور تحميل الصفحة
   updateCartIcon();
-  window.addEventListener("hashchange", updateActiveLinks);
+
+  // الاستماع للتغييرات في localStorage لتحديث العداد تلقائياً
+  window.addEventListener("storage", updateCartIcon);
+
+  // تحديث العداد عند تغيير الهاش
+  window.addEventListener("hashchange", function () {
+    updateActiveLinks();
+    updateCartIcon();
+  });
+
+  // تحديث العداد كل ثانية للتقاط التغييرات (اختياري)
+  setInterval(updateCartIcon, 1000);
 }
+
 document.addEventListener("DOMContentLoaded", initializeApp);

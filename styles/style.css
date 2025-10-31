@@ -167,6 +167,11 @@ header .icons i {
   transition: color 0.3s;
 }
 
+header .icons span {
+  bottom: 16px;
+  left: 16px;
+}
+
 header .icons i.active,
 header .icons i:hover {
   color: var(--accent-color);
@@ -224,6 +229,25 @@ header .search .search-btn:hover {
   position: relative;
   width: 30px;
   height: 30px;
+}
+
+.cart-counter {
+  position: absolute;
+  bottom: 17px;
+  left: 20px;
+  background: var(--accent-color);
+  color: var(--white);
+  border-radius: 50%;
+  border: 3px solid var(--white);
+  width: 18px;
+  height: 18px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  z-index: 1001;
+  pointer-events: none;
 }
 
 .hamburger-menu i {
@@ -350,19 +374,9 @@ header .search .search-btn:hover {
   padding-right: 2rem;
 }
 
-/* Mobile Cart Counter */
-.cart-counter-mobile {
-  background: var(--accent-color);
-  color: white;
-  border-radius: 50%;
-  width: 22px;
-  height: 22px;
-  font-size: 0.8rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: auto;
-  position: absolute;
+.mobile-nav-link-cart span{
+  bottom: 50%;
+  transform: translateX(50%) translateY(50%) scale(1.5);
 }
 
 /* Mobile Overlay */
@@ -617,7 +631,8 @@ header .search .search-btn:hover {
     font-size: 0.7rem;
   }
 
-  .products-grid {grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  .products-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 10px;
   }
 

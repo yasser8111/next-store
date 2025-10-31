@@ -337,26 +337,6 @@
 }
 
 /* =====================================================
-   🔢 Cart Counter Badge
-===================================================== */
-.cart-counter {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  background: var(--accent-color);
-  color: var(--white);
-  border-radius: 50%;
-  width: 18px;
-  height: 18px;
-  font-size: 0.7rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  border: 2px solid var(--bg-primary);
-}
-
-/* =====================================================
    📱 Responsive Design - Improved
 ===================================================== */
 @media (max-width: 768px) {
