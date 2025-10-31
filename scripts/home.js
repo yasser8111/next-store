@@ -1,210 +1,141 @@
-import { ProductManager } from "./modules/products.js";
-import { CartManager } from "./modules/cart.js";
-import { showNotification, getImageUrl } from "./utils/helpers.js";
+import { db } from "./firebase.js";
+import { collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-class HomePage {
+class ProductLoader {
   constructor() {
-    this.gridElement = document.getElementById("product-grid");
-    this.loadingElement = document.getElementById("loading-container");
-    this.customizeCard = document.getElementById("customize-card");
-    this.init();
+    this.currentFilter = "all";
+    this.productsGrid = document.getElementById("products-grid");
   }
 
-  async init() {
-    try {
-      await this.loadProducts();
-      this.setupHeroInteractions(); // أضف هذا السطر
-    } catch (error) {
-      console.error("Error initializing home page:", error);
-      this.showError("حدث خطأ في تحميل الصفحة");
-    }
-  }
+  async loadProducts(filter = "all") {
+    if (!this.productsGrid) return;
 
-  setupHeroInteractions() {
-    // زر CTA
-    const heroCta = document.querySelector(".hero-cta");
-    if (heroCta) {
-      heroCta.addEventListener("click", () => {
-        document.getElementById("products").scrollIntoView({
-          behavior: "smooth",
-        });
-      });
-    }
-
-    // زر التمرير للأسفل
-    const scrollDown = document.querySelector(".scroll-down");
-    if (scrollDown) {
-      scrollDown.addEventListener("click", () => {
-        document.getElementById("products").scrollIntoView({
-          behavior: "smooth",
-        });
-      });
-    }
-  }
-
-  async loadProducts() {
-    if (!this.gridElement) return;
-
-    this.showLoading(true);
+    this.showLoading();
+    this.currentFilter = filter;
 
     try {
-      const products = await ProductManager.getAllProducts();
+      let productsQuery = collection(db, "products");
+      
+      if (filter === "new") {
+        productsQuery = query(productsQuery, where("isNew", "==", true));
+      } else if (filter === "bestseller") {
+        productsQuery = query(productsQuery, where("isBestseller", "==", true));
+      }
 
-      // إضافة منتج التصميم المخصص إلى المنتجات
-      const customizeProduct = {
-        id: "customize",
-        name: "صمّم تيشيرتك",
-        price: 15000,
-        currency: "YER",
-        images: ["customize_qcgbab.webp"],
-        description: "صمّم التيشيرت الخاص بك",
-        status: "available",
-      };
-
-      // إضافة منتج التصميم المخصص كأول منتج
-      const allProducts = [customizeProduct, ...products];
-
-      await ProductManager.renderProductsGrid(this.gridElement, allProducts);
+      const snapshot = await getDocs(productsQuery);
+      this.renderProducts(snapshot);
     } catch (error) {
-      console.error("Error loading products:", error);
-      this.showError("فشل في تحميل المنتجات. حاول تحديث الصفحة.");
-    } finally {
-      this.showLoading(false);
+      console.error("خطأ في تحميل المنتجات:", error);
+      this.showError();
     }
   }
 
-  // إزالة الدوال القديمة التي لم نعد نحتاجها
-  // setupCustomizeCard() - إزالة
-  // navigateToCustomize() - إزالة
+  renderProducts(snapshot) {
+    this.productsGrid.innerHTML = "";
 
-  testImageLoad(url, productName) {
-    const img = new Image();
-    img.onload = () => {
-      console.log(`✅ صورة "${productName}" محملة بنجاح`);
-      console.log(`   الرابط: ${url}`);
-    };
-    img.onerror = () => {
-      console.error(`❌ فشل تحميل صورة "${productName}"`);
-      console.error(`   الرابط: ${url}`);
-    };
-    img.src = url;
-  }
+    // إضافة بطاقة التصميم المخصص أولاً
+    this.addCustomizeCard();
 
-  // دالة لاختبار تحميل الصورة
-  testImageLoad(url, productName) {
-    const img = new Image();
-    img.onload = () => {
-      console.log(`✅ الصورة لـ "${productName}" محملة بنجاح: ${url}`);
-    };
-    img.onerror = () => {
-      console.error(`❌ فشل تحميل الصورة لـ "${productName}": ${url}`);
-    };
-    img.src = url;
-  }
-
-  showLoading(show = true) {
-    if (this.loadingElement) {
-      this.loadingElement.style.display = show ? "flex" : "none";
+    if (snapshot.empty) {
+      this.productsGrid.innerHTML += '<p class="no-products">لا توجد منتجات حالياً</p>';
+      return;
     }
+
+    snapshot.forEach((doc) => {
+      const product = doc.data();
+      this.createProductCard(product, doc.id);
+    });
   }
 
-  showError(message) {
-    if (this.gridElement) {
-      this.gridElement.innerHTML = `
-                <div class="error-state">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    <p>${message}</p>
-                    <button onclick="window.location.reload()" class="btn-retry">إعادة المحاولة</button>
-                </div>
-            `;
-    }
+  addCustomizeCard() {
+    const customizeCard = document.createElement("div");
+    customizeCard.className = "product-card customize";
+    customizeCard.innerHTML = `
+      <div class="pro-img">
+        <img src="https://res.cloudinary.com/dxbelrmq1/image/upload/customize_qcgbab.webp" 
+             alt="صمم تشيرتك" />
+      </div>
+      <div class="pro-ditals">
+        <div class="pro-name">صمم تشيرتك ...</div>
+        <div class="pro-price">15000 ر.ي</div>
+        <button class="add-to-cart">إضافة إلى السلة</button>
+      </div>
+    `;
+    this.productsGrid.appendChild(customizeCard);
   }
 
-  setupCustomizeCard() {
-    if (this.customizeCard) {
-      this.customizeCard.addEventListener("click", () => {
-        this.navigateToCustomize();
-      });
-    }
-  }
+  createProductCard(product, id) {
+    const card = document.createElement("div");
+    card.className = "product-card";
+    card.innerHTML = `
+      <div class="pro-img">
+        <img src="${this.getImageUrl(product.images?.[0])}" 
+             alt="${this.escapeHtml(product.name)}"
+             loading="lazy" 
+             onerror="this.src='./imgs/placeholder.webp'">
+      </div>
+      <div class="pro-ditals">
+        <div class="pro-name">${this.escapeHtml(product.name)}</div>
+        <div class="pro-price">${product.price} ر.ي</div>
+        <button class="add-to-cart">إضافة إلى السلة</button>
+      </div>
+    `;
 
-  navigateToCustomize() {
-    const customizeProduct = {
-      id: "customize",
-      name: "صمّم تيشيرتك...",
-      price: 15000,
-      currency: "YER",
-      images: ["customize_qcgbab.webp"],
-      description: "صمّم التيشيرت الخاص بك",
-      status: "available",
-    };
-
-    // حفظ في localStorage والانتقال
-    localStorage.setItem("selectedProduct", JSON.stringify(customizeProduct));
-    window.location.href = "./pages/customize-details.html";
-  }
-
-  setupSearchFunctionality() {
-    // يمكن إضافة شريط بحث في المستقبل
-    const searchInput = document.createElement("input");
-    searchInput.type = "text";
-    searchInput.placeholder = "ابحث عن منتج...";
-    searchInput.className = "search-input";
-    searchInput.style.cssText = `
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto 2rem;
-            padding: 0.8rem 1rem;
-            border: 2px solid var(--border-color);
-            border-radius: 25px;
-            font-size: 1rem;
-            display: block;
-        `;
-
-    // إضافة شريط البحث إذا كان مطلوباً
-    // this.gridElement.parentNode.insertBefore(searchInput, this.gridElement);
-    // حفظ في localStorage والانتقال
-    localStorage.setItem("selectedProduct", JSON.stringify(customizeProduct));
-    window.location.href = "./pages/product-details.html?id=customize";
-  }
-
-  // دالة للمساعدة في التصفية (للاستخدام المستقبلي)
-  filterProducts(searchTerm) {
-    const productCards = this.gridElement.querySelectorAll(".product-card");
-    let visibleCount = 0;
-
-    productCards.forEach((card) => {
-      const productName = card
-        .querySelector(".product-name")
-        .textContent.toLowerCase();
-      const productDescription =
-        card.querySelector(".product-description")?.textContent.toLowerCase() ||
-        "";
-
-      const matches =
-        productName.includes(searchTerm.toLowerCase()) ||
-        productDescription.includes(searchTerm.toLowerCase());
-
-      card.style.display = matches ? "block" : "none";
-      if (matches) visibleCount++;
+    // إضافة event listener للصورة
+    const img = card.querySelector(".pro-img img");
+    img.addEventListener("click", () => {
+      this.navigateToProductDetails(product);
     });
 
-    // عرض حالة عدم وجود نتائج
-    if (visibleCount === 0 && searchTerm) {
-      this.gridElement.innerHTML += `
-                <div class="empty-state">
-                    <i class="fa-solid fa-search"></i>
-                    <p>لا توجد نتائج لـ "${searchTerm}"</p>
-                </div>
-            `;
+    this.productsGrid.appendChild(card);
+  }
+
+  navigateToProductDetails(product) {
+    try {
+      localStorage.setItem("selectedProduct", JSON.stringify(product));
+      window.location.href = "./product-details.html";
+    } catch (error) {
+      console.error("خطأ في حفظ المنتج:", error);
+      // استخدام الطريقة البديلة
+      window.location.href = `./product-details.html?id=${product.id}`;
     }
+  }
+
+  getImageUrl(image) {
+    if (!image) return "./imgs/placeholder.webp";
+    if (image.startsWith("http")) return image;
+    return `https://res.cloudinary.com/dxbelrmq1/image/upload/${image}`;
+  }
+
+  escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  showLoading() {
+    this.productsGrid.innerHTML = '<p class="loading">جاري التحميل...</p>';
+  }
+
+  showError() {
+    this.productsGrid.innerHTML = '<p class="error">حدث خطأ أثناء تحميل المنتجات</p>';
   }
 }
 
-// تهيئة الصفحة الرئيسية عند التحميل
+// التهيئة عند تحميل الصفحة
 document.addEventListener("DOMContentLoaded", () => {
-  new HomePage();
+  const productLoader = new ProductLoader();
+  productLoader.loadProducts();
+  
+  // جعل الدالة متاحة globally للفلترة
+  window.filterProducts = (filter, event) => {
+    if (event) {
+      // إزالة active من جميع الأزرار وإضافتها للزر المضغوط
+      document.querySelectorAll('.products-header button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+    }
+    productLoader.loadProducts(filter);
+  };
 });
-
-// جعل الدوال متاحة عالمياً للاستخدام في console
-window.HomePage = HomePage;

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- font awsome css  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- google fonts css  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital@0;1&family=Noto+Kufi+Arabic:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- style css  -->
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/checkout.css" />
+
+    <title>nextstore - اتمام الطلب</title>
+</head>
+<body>
+<header id="header"></header>
+
+    <section class="checkout-section">
+      <div class="container">
+        <div class="checkout-header">
+          <h1>اتمام الطلب</h1>
+          <p>أكمل عملية الشراء عن طريق التحويل البنكي</p>
+        </div>
+
+        <div class="checkout-content">
+          <div class="checkout-steps">
+            <div class="step active">
+              <div class="step-number">1</div>
+              <div class="step-title">تفاصيل الطلب</div>
+            </div>
+            <div class="step active">
+              <div class="step-number">2</div>
+              <div class="step-title">التحويل البنكي</div>
+            </div>
+            <div class="step">
+              <div class="step-number">3</div>
+              <div class="step-title">تأكيد الطلب</div>
+            </div>
+          </div>
+
+          <div class="checkout-grid">
+            <div class="order-summary">
+              <h3>ملخص الطلب</h3>
+              <div class="order-items" id="order-items">
+                <!-- سيتم ملؤها بواسطة JavaScript -->
+              </div>
+              <div class="order-total">
+                <div class="total-row">
+                  <span>المجموع:</span>
+                  <span id="order-subtotal">0 ر.ي</span>
+                </div>
+                <div class="total-row">
+                  <span>الخصم:</span>
+                  <span id="order-discount">0 ر.ي</span>
+                </div>
+                <div class="total-row final">
+                  <span>المجموع النهائي:</span>
+                  <span id="order-total">0 ر.ي</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="payment-info">
+              <div class="payment-card">
+                <h3>التحويل البنكي</h3>
+                <p class="payment-description">
+                  قم بالتحويل إلى أحد الحسابات التالية وأرسل إشعار التحويل عبر الواتساب
+                </p>
+
+                <div class="bank-accounts">
+                  <div class="bank-account">
+                    <h4>البنك الأهلي</h4>
+                    <div class="account-details">
+                      <div class="account-field">
+                        <span class="field-label">اسم الحساب:</span>
+                        <span class="field-value">متجر نكست</span>
+                      </div>
+                      <div class="account-field">
+                        <span class="field-label">رقم الحساب:</span>
+                        <span class="field-value">SA1234567890123456789</span>
+                      </div>
+                      <div class="account-field">
+                        <span class="field-label">IBAN:</span>
+                        <span class="field-value">SA03 8000 1234 5678 9012 3456</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="bank-account">
+                    <h4>بنك الراجحي</h4>
+                    <div class="account-details">
+                      <div class="account-field">
+                        <span class="field-label">اسم الحساب:</span>
+                        <span class="field-value">متجر نكست</span>
+                      </div>
+                      <div class="account-field">
+                        <span class="field-label">رقم الحساب:</span>
+                        <span class="field-value">SA9876543210987654321</span>
+                      </div>
+                      <div class="account-field">
+                        <span class="field-label">IBAN:</span>
+                        <span class="field-value">SA03 8000 9876 5432 1098 7654</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="transfer-amount">
+                  <h4>المبلغ المطلوب:</h4>
+                  <div class="amount-display" id="transfer-amount">0 ر.ي</div>
+                </div>
+
+                <div class="whatsapp-section">
+                  <div class="whatsapp-info">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <div class="info-content">
+                      <h4>أرسل إشعار التحويل عبر الواتساب</h4>
+                      <p>سيصلك طلبك في أسرع وقت ممكن بعد تأكيد التحويل</p>
+                    </div>
+                  </div>
+                  <a href="#" class="whatsapp-btn" id="whatsapp-btn">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    إرسال via واتساب
+                  </a>
+                </div>
+
+                <div class="order-note">
+                  <p><strong>ملاحظة:</strong> يرجى حفظ رقم التحويل وإرفاقه عند الإرسال على الواتساب</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<footer id="footer"></footer>
+
+    <!-- js  -->
+    <script type="module" src="./scripts/checkout.js"></script>
+    <script type="module" src="./scripts/script.js"></script>
+</body>
+</html>

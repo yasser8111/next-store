@@ -1,231 +1,186 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Next Store - متجر نكست</title>
-    <link rel="icon" type="image/x-icon" href="../img/logo.webp" />
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="./css/style.css" />
-    <link rel="stylesheet" href="./css/home.css" />
-
-    <!-- Font Awesome -->
+    <!-- font awsome css  -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
+
+    <!-- google fonts css  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital@0;1&family=Noto+Kufi+Arabic:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- swiper css  -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <!-- style css  -->
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/home.css" />
+
+    <title>متجر نكست - الصفحة الرئسية</title>
   </head>
   <body>
-    <!-- Navigation -->
-    <nav id="navbar" class="navbar top">
-      <div class="nav-container">
-        <!-- الشعار -->
-        <div class="logo">
-          <img
-            src="../img/logo.webp"
-            alt="Next Store Logo"
-            onclick="window.location.href='./index.html#home'"
-          />
+    <header id="header"></header>
+
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1>مرحبا بكم في متجر <strong>نكست </strong></h1>
+          <p>متجرك الوحيد الذي يلبي جميع احتياجاتك</p>
+          <a href="#products" class="btn-primary">تسوق الان</a>
+        </div>
+        <img src="./imgs/hero.png" alt="" />
+      </div>
+    </section>
+
+    <section class="Banners">
+      <div class="Banners-grid">
+        <div class="Banner">
+          <h2><strong>جودة</strong> لا تضاهى</h2>
+          <p>
+            التيشرتات المصممة بعناية من قماش عالي الجودة، توفر لك الراحة طوال
+            اليوم ونعومة تدوم طويلاً.
+            <img class="banner-img" src="./imgs/banner.png" alt="" />
+          </p>
         </div>
 
-        <!-- قائمة التنقل -->
-        <ul class="nav-menu">
-          <li><a href="./index.html#home">الرئيسية</a></li>
-          <li><a href="#products">تيشيرتات</a></li>
-          <li><a href="#about">من نحن</a></li>
-          <li><a href="#contact">اتصل بنا</a></li>
-        </ul>
+        <div class="Banner">
+          <h3>اصنع <strong>تصميمك الخاص</strong></h3>
+          <p>
+            اختر من بين مئات التصاميم العصرية أو صمم التيشرت الخاص بك لتعبّر عن
+            نفسك.
+          </p>
+          <br />
+          <a class="Banner-btn" href="./customize.html">صمم تيشيرتك</a>
+        </div>
 
-        <div class="nav-buttons">
-          <!-- دائرة المستخدم -->
-          <div class="user-avatar" id="user-avatar" style="display: none">
-            <img src="./img/user-placeholder.webp" alt="User" />
-            <div class="user-dropdown">
-              <div class="user-name">اسم المستخدم</div>
-              <a href="./pages/profile.html"
-                ><i class="fa-solid fa-user"></i> الملف الشخصي</a
-              >
-              <a href="./pages/orders.html"
-                ><i class="fa-solid fa-box"></i> طلباتي</a
-              >
-              <a href="#" id="logout-btn"
-                ><i class="fa-solid fa-right-from-bracket"></i> تسجيل خروج</a
-              >
-            </div>
+        <div class="Banner">
+          <h3><strong>مناسب</strong> لكل مناسبة</h3>
+          <p>للكلية، للعمل، أو لنزهة عابرة... وجدنا لك التيشرت المثالي.</p>
+        </div>
+
+        <div class="Banner">
+          <h2><strong>عروض</strong> حصرية</h2>
+          <p>احصل على خصم 10% عند شرائك أكثر من 30الف ر.ي.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- <section class="categorys">
+      <div class="container">
+        <div class="category-header">
+          <div class="cat-swiper-btns">
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
           </div>
 
-          <!-- زر تسجيل الدخول -->
-          <a href="./pages/auth.html" class="auth-btn" id="auth-btn">
-            <i class="fa-solid fa-user"></i>
-          </a>
+          <div class="category-title">الاصناف</div>
+        </div>
 
-          <!-- زر السلة -->
-          <a href="./pages/cart.html" class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span class="cart-count">0</span>
-          </a>
+        <div class="swiper categorys-Swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <i class="fa-solid fa-shirt"></i>
+              <div class="category-name">تيشرتات</div>
+            </div>
+            <div class="swiper-slide">
+              <i class="fa-solid fa-shirt"></i>
+              <div class="category-name">تيشرتات</div>
+            </div>
+            <div class="swiper-slide">
+              <i class="fa-solid fa-shirt"></i>
+              <div class="category-name">تيشرتات</div>
+            </div>
+            <div class="swiper-slide">
+              <i class="fa-solid fa-shirt"></i>
+              <div class="category-name">تيشرتات</div>
+            </div>
+            <div class="swiper-slide">
+              <i class="fa-solid fa-shirt"></i>
+              <div class="category-name">تيشرتات</div>
+            </div>
+            <div class="swiper-slide">
+              <i class="fa-solid fa-shirt"></i>
+              <div class="category-name">تيشرتات</div>
+            </div>
+            <div class="swiper-slide">
+              <i class="fa-solid fa-shirt"></i>
+              <div class="category-name">تيشرتات</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
 
-          <!-- زر القائمة المتنقلة -->
-          <button class="nav-toggle" aria-label="فتح القائمة">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+    <section class="products" id="products">
+      <div class="container">
+        <div class="products-header">
+          <button class="active" onclick="filterProducts('all', event)">
+            كل المنتجات
+          </button>
+          <button onclick="filterProducts('new', event)">جديد</button>
+          <button onclick="filterProducts('bestseller', event)">
+            افضل مبيعا
           </button>
         </div>
-      </div>
-    </nav>
 
-    <!-- Hero Section  -->
-    <section id="home" class="hero" aria-labelledby="home-heading">
-      <div class="hero-bg" aria-hidden="true"></div>
-      <div class="hero-content">
-        <h1 id="home-heading" class="hero-title">تيشيرتات تعبر عنك</h1>
-        <p class="hero-subtitle">
-          اكتشف مجموعة التيشيرتات المميزة بتصاميم فريدة وجودة لا تضاهى
-        </p>
-        <a href="#products" class="hero-btn" role="button">اكتشف المجموعة</a>
-      </div>
+        <div class="products-grid" id="products-grid">
+          <div class="product-card customize">
+            <div class="pro-img">
+              <a href=""
+                ><img
+                  src="https://res.cloudinary.com/dxbelrmq1/image/upload/customize_qcgbab.webp"
+                  alt=""
+              /></a>
+            </div>
+            <div class="pro-ditals">
+              <div class="pro-name">صمم تشيرتك ...</div>
+              <div class="pro-price">قريبا</div>
+            </div>
+          </div>
 
-      <a
-        href="#products"
-        class="scroll-down-circle"
-        aria-label="انتقل للأسفل"
-        data-target="#products"
-      >
-        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-      </a>
-    </section>
-
-    <!-- Products Section -->
-    <section id="products" class="products container">
-      <div class="section-header">
-        <h2 class="section-title">تيشيرتاتنا</h2>
-        <p class="section-subtitle">
-          خصم 10% علا المشتريات الاكثر من 30الف ر.ي
-        </p>
-        <hr class="section-divider" />
-      </div>
-
-      <!-- Loading State -->
-      <div class="loading-container" id="loading-container">
-        <div class="loading-spinner"></div>
-        <p>جاري تحميل المنتجات...</p>
-      </div>
-
-      <!-- Products Grid -->
-      <div class="product-grid" id="product-grid">
-        <!-- Products will be loaded dynamically -->
+          <div
+            id="loading"
+            style="text-align: center; padding: 20px; display: none"
+          >
+            <p>جاري تحميل المنتجات...</p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
+    <section class="customize-cta">
       <div class="container">
-        <h2 class="section-title">من نحن</h2>
-        <p class="about-text">
-          انطلقنا بفكرة بسيطة: تقديم تيشيرتات مبتكرة تجمع بين الجودة العالية
-          والتصاميم العصرية، لتعكس شخصية كل عميل بأسلوبه الخاص. نؤمن بأن الأناقة
-          تبدأ بالراحة، وأن التصميم يعبر عن الهوية.
-        </p>
+        <div class="cta-content">
+          <h2>ألم تجد ما تبحث عنه؟</h2>
+          <p>صمم تيشيرتك بنفسك واجعلها تعبر عنك</p>
+          <a href="./customize.html" class="btn btn-primary">صمم تيشيرتك الآن</a>
+        </div>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer" id="contact">
-      <div class="footer-container">
-        <!-- Column 1: Brand & Description -->
-        <div class="footer-col">
-          <h3>متجر نكست</h3>
-          <p>
-            نقدّم لك أفضل خامات القطن مع تصاميم عصرية تجمع بين الراحة والأناقة.
-            نحن نؤمن بأن الأناقة تبدأ بالراحة، وأن التصميم يعبر عن الهوية.
-          </p>
+    <footer id="footer"></footer>
 
-          <!-- Payment Methods -->
-          <!-- <div class="payment-methods">
-                <h5>طرق الدفع المدعومة:</h5>
-                <div class="payment-icons">
-                    <div class="payment-icon">VISA</div>
-                    <div class="payment-icon">MC</div>
-                    <div class="payment-icon">MADA</div>
-                    <div class="payment-icon">APPLE</div>
-                    <div class="payment-icon">STC</div>
-                </div>
-            </div> -->
-        </div>
+    <!-- swiper js  -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-        <!-- Column 2: Quick Links -->
-        <div class="footer-col">
-          <h4>روابط سريعة</h4>
-          <ul>
-            <li><a href="../index.html#home">الرئيسية</a></li>
-            <li><a href="../index.html#products">تيشيرتات</a></li>
-            <li><a href="../index.html#about">من نحن</a></li>
-            <li><a href="./pages/cart.html">سلة التسوق</a></li>
-            <li><a href="./pages/terms.html">الشروط والأحكام</a></li>
-            <li><a href="./pages/customize-details.html">صمّم تيشيرتك</a></li>
-          </ul>
-        </div>
-
-        <!-- Column 3: Contact Info -->
-        <div class="footer-col">
-          <h4>تواصل معنا</h4>
-          <div class="contact-info">
-            <div class="contact-item">
-              <i class="fa-solid fa-envelope"></i>
-              <span>hello@nextstore.com</span>
-            </div>
-            <div class="contact-item">
-              <i class="fa-solid fa-phone"></i>
-              <span>+966 50 000 0000</span>
-            </div>
-            <div class="contact-item">
-              <i class="fa-solid fa-location-dot"></i>
-              <span> اليمن - حضرموت - المكلا </span>
-            </div>
-            <div class="contact-item">
-              <i class="fa-solid fa-clock"></i>
-              <span>٢٤/٧ خدمة العملاء</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Column 4: Social Media -->
-        <div class="footer-col">
-          <h4>تابعنا</h4>
-          <p>كن جزءاً من مجتمعنا وتابع آخر التحديثات</p>
-          <div class="social-icons">
-            <a href="#" class="facebook" aria-label="Facebook">
-              <i class="fa-brands fa-facebook-f"></i>
-            </a>
-            <a href="#" class="instagram" aria-label="Instagram">
-              <i class="fa-brands fa-instagram"></i>
-            </a>
-            <a href="#" class="twitter" aria-label="Twitter">
-              <i class="fa-brands fa-twitter"></i>
-            </a>
-            <a href="#" class="whatsapp" aria-label="WhatsApp">
-              <i class="fa-brands fa-whatsapp"></i>
-            </a>
-            <a href="#" class="tiktok" aria-label="TikTok">
-              <i class="fa-brands fa-tiktok"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Footer Bottom -->
-      <div class="footer-bottom">
-        <p>
-          <i class="fa-regular fa-copyright"></i>
-          ٢٠٢٤ Next Store. جميع الحقوق محفوظة.
-        </p>
-      </div>
-    </footer>
-
-    <!-- JavaScript -->
-    <script type="module" src="../scripts/script.js"></script>
-    <script type="module" src="../scripts/home.js"></script>
+    <!-- js  -->
+    <script type="module" src="./scripts/home.js"></script>
+    <script type="module" src="./scripts/products.js"></script>
+    <script type="module" src="./scripts/script.js"></script>
   </body>
 </html>

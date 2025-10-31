@@ -1,391 +1,357 @@
-import { ProductManager } from "./modules/products.js";
-import { CartManager } from "./modules/cart.js";
+import { showNotification, updateCartIcon } from "./script.js";
+import { db } from "./firebase.js";
 import {
-  getImageUrl,
-  formatPrice,
-  showNotification,
-  getColorCode,
-} from "./utils/helpers.js";
-import { SIZES } from "./utils/constants.js";
+  doc,
+  getDoc,
+} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-class ProductDetailsPage {
-  constructor() {
-    this.container = document.getElementById("product-details-container");
-    this.selectedSize = null;
-    this.selectedColor = null;
-    this.product = null;
-    this.swiper = null;
-    this.init();
-  }
+const SELECTORS = {
+  containerId: "product-details-container",
+  loadingId: "product-loading",
+  errorId: "product-error",
+  cartIcon: "#cart-icon",
+};
+
+const ProductDetails = {
+  selectedProduct: null,
+  mainSwiper: null,
 
   async init() {
-    try {
-      await this.loadProduct();
-      this.renderProduct();
-      this.setupEventListeners();
-      this.initSwiper();
-    } catch (error) {
-      console.error("Error initializing product details:", error);
-      this.showError("حدث خطأ في تحميل صفحة المنتج");
+    this.showLoading();
+
+    // محاولة جلب المنتج من localStorage
+    const saved = localStorage.getItem("selectedProduct");
+    if (saved) {
+      try {
+        this.selectedProduct = JSON.parse(saved);
+        this.render();
+        this.hideLoading();
+        this.setupEventListeners();
+        return;
+      } catch (e) {
+        console.warn(
+          "Invalid selectedProduct in localStorage, will fallback to id param.",
+          e
+        );
+      }
     }
-  }
 
-  async loadProduct() {
-    try {
-      this.showLoading(true);
-
-      const urlParams = new URLSearchParams(window.location.search);
-      const productId = urlParams.get("id");
-
-      if (productId) {
-        this.product = await ProductManager.getProductById(productId);
-      }
-
-      if (!this.product) {
-        const storedProduct = localStorage.getItem("selectedProduct");
-        if (storedProduct) {
-          this.product = JSON.parse(storedProduct);
+    const urlId = this.getQueryParam("id");
+    if (urlId) {
+      try {
+        const m = await import("./firebase.js");
+        if (m && m.db) {
+          const { doc, getDoc } = await import(
+            "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"
+          );
+          const ref = doc(db, "products", urlId);
+          const snap = await getDoc(ref);
+          if (snap.exists()) {
+            this.selectedProduct = { id: snap.id, ...snap.data() };
+            localStorage.setItem(
+              "selectedProduct",
+              JSON.stringify(this.selectedProduct)
+            );
+            this.render();
+            this.hideLoading();
+            this.setupEventListeners();
+            return;
+          } else {
+            showNotification("لم يتم العثور على المنتج المطلوب.", "error");
+            return;
+          }
         }
+      } catch (err) {
+        console.warn(
+          "Could not load firebase dynamically or fetch product:",
+          err
+        );
       }
-
-      if (!this.product) {
-        const storedProductId = localStorage.getItem("selectedProductId");
-        if (storedProductId) {
-          this.product = await ProductManager.getProductById(storedProductId);
-        }
-      }
-
-      if (!this.product) {
-        throw new Error("Product not found");
-      }
-
-      setTimeout(() => {
-        localStorage.removeItem("selectedProduct");
-        localStorage.removeItem("selectedProductId");
-      }, 1000);
-
-      this.showLoading(false);
-    } catch (error) {
-      console.error("Error loading product:", error);
-      throw error;
     }
-  }
+    showNotification(
+      "لم يتم العثور على بيانات المنتج. الرجاء العودة واختيار منتج.",
+      "erorr"
+    );
+  },
 
-  renderProduct() {
-    if (!this.container || !this.product) return;
+  render() {
+    const container = document.getElementById(SELECTORS.containerId);
+    if (!container)
+      return console.error("Container not found:", SELECTORS.containerId);
 
-    const isAvailable = ProductManager.isProductAvailable(this.product);
+    const p = this.selectedProduct || {};
+    const images =
+      Array.isArray(p.images) && p.images.length
+        ? p.images
+        : ["./imgs/placeholder.webp"];
+    const description = p.description || "لا يوجد وصف لهذا المنتج.";
+    const price = this.formatPrice(p.price || 0);
 
-    this.container.innerHTML = `
-      <div class="product-gallery">
-        <div class="swiper product-swiper">
-          <div class="swiper-wrapper">
-            ${this.product.images
-              ?.map(
-                (image) => `
-              <div class="swiper-slide">
-                <img src="${getImageUrl(image)}" 
-                     alt="${this.product.name}"
-                     loading="lazy"
-                     onerror="this.src='../public/img/placeholder.webp'">
+    // HTML: Gallery (main swiper) + thumbnails grid (non-swiper)
+    container.innerHTML = `
+      <div class="product-details">
+        <div class="product-content" style="display:flex;gap:2rem;align-items:flex-start;justify-content:center;">
+          <div class="product-gallery">
+            <div class="gallery-main swiper">
+              <div class="swiper-wrapper">
+                ${images
+                  .map(
+                    (img) => `
+                  <div class="swiper-slide">
+                    <img src="${this.getImageUrl(img)}" alt="${this.escapeHtml(
+                      p.name || ""
+                    )}" onerror="this.src='./imgs/placeholder.webp'"/>
+                  </div>
+                `
+                  )
+                  .join("")}
               </div>
-            `
-              )
-              .join("")}
-          </div>
-          
-          <div class="swiper-button-next">
-            <i class="fa-solid fa-chevron-left"></i>
-          </div>
-          <div class="swiper-button-prev">
-            <i class="fa-solid fa-chevron-right"></i>
-          </div>
-          
-          <div class="swiper-pagination"></div>
-        </div>
-      </div>
-
-      <div class="product-info">
-        <div class="product-header">
-          <h1 class="product-title">${this.product.name}</h1>
-          <p class="product-description">${this.product.description}</p>
-          <div class="product-price">${formatPrice(
-            this.product.price,
-            this.product.currency
-          )}</div>
-        </div>
-
-        ${
-          !isAvailable
-            ? `
-          <div class="product-unavailable">
-            <div class="unavailable-message">
-              <i class="fa-solid fa-clock"></i>
-              <p>هذا المنتج غير متاح حالياً</p>
+              <div class="swiper-button-next"><i class="fa-solid fa-chevron-left"></i></div>
+              <div class="swiper-button-prev"><i class="fa-solid fa-chevron-right"></i></div>
+              <div class="swiper-pagination"></div>
             </div>
           </div>
-        `
-            : `
-          <div class="product-options">
-            ${
-              this.product.sizes?.length > 0
-                ? `
+
+          <div class="product-info">
+            <div class="product-header">
+              <h1 class="product-title">${this.escapeHtml(
+                p.name || "منتج بدون اسم"
+              )}</h1>
+              <p class="product-description">${this.escapeHtml(description)}</p>
+              <div class="product-price">${price} ر.ي</div>
+            </div>
+
+            <div class="product-options">
               <div class="option-group">
                 <label class="option-label">اختر المقاس:</label>
                 <div class="size-options">
-                  ${SIZES.map(
-                    (size) => `
-                    <button class="size-btn ${
-                      this.product.sizes.includes(size) ? "" : "disabled"
-                    }" 
-                            data-size="${size}"
-                            ${
-                              this.product.sizes.includes(size)
-                                ? ""
-                                : "disabled"
-                            }>
-                      ${size}
-                    </button>
-                  `
-                  ).join("")}
+                  ${this.renderSizes(p.sizes)}
                 </div>
               </div>
-            `
-                : ""
-            }
 
-            ${
-              this.product.colors?.length > 0
-                ? `
               <div class="option-group">
                 <label class="option-label">اختر اللون:</label>
                 <div class="color-options">
-                  ${this.product.colors
-                    .map(
-                      (color) => `
-                    <div class="color-btn" 
-                         data-color="${color}"
-                         style="background-color: ${getColorCode(color)}"
-                         title="${color}">
-                    </div>
-                  `
-                    )
-                    .join("")}
+                  ${this.renderColors(p.colors)}
                 </div>
               </div>
-            `
-                : ""
-            }
-          </div>
+            </div>
 
-          <div class="product-actions">
-            <button class="btn btn-primary add-to-cart-btn" id="add-to-cart-btn" disabled>
-              <i class="fa-solid fa-cart-plus"></i>
-              أضف إلى السلة
-            </button>
-          </div>
-        `
-        }
+            <div class="product-actions">
+              <button id="add-to-cart-btn" class="add-to-cart">${
+                p.inStock === false ? "غير متاح" : "إضافة إلى السلة"
+              }</button>
+            </div>
 
-        ${
-          this.product.specs?.length > 0
-            ? `
-          <div class="product-specs">
-            <h3 class="specs-title">مواصفات المنتج</h3>
-            <ul class="specs-list">
-              ${this.product.specs
-                .map(
-                  (spec) => `
-                <li class="specs-item">
-                  <span class="specs-label">${spec.title}:</span>
-                  <span class="specs-value">${spec.value}</span>
-                </li>
-              `
-                )
-                .join("")}
-            </ul>
+            <div class="product-specs">
+              <h4 class="specs-title">مواصفات المنتج</h4>
+              <ul class="specs-list">
+                <li class="specs-item"><span class="specs-label">المادة:</span> <span class="specs-value">${this.escapeHtml(
+                  p.material || "قطن 100%"
+                )}</span></li>
+                <li class="specs-item"><span class="specs-label">العناية:</span> <span class="specs-value">${this.escapeHtml(
+                  p.care || "غسيل آمن"
+                )}</span></li>
+                <li class="specs-item"><span class="specs-label">المنشأ:</span> <span class="specs-value">${this.escapeHtml(
+                  p.origin || "غير محدد"
+                )}</span></li>
+                ${
+                  Array.isArray(p.specs)
+                    ? p.specs
+                        .map(
+                          (s) =>
+                            `<li class="specs-item"><span class="specs-label">${this.escapeHtml(
+                              s.label
+                            )}</span><span class="specs-value">${this.escapeHtml(
+                              s.value
+                            )}</span></li>`
+                        )
+                        .join("")
+                    : ""
+                }
+              </ul>
+            </div>
           </div>
-        `
-            : ""
-        }
+        </div>
       </div>
     `;
+    this.initSwipers();
+  },
 
-    this.setupOptionButtons();
-  }
+  initSwipers() {
+    try {
+      if (this.mainSwiper) this.mainSwiper.destroy(true, true);
+    } catch {}
+    this.mainSwiper = new Swiper(".gallery-main", {
+      spaceBetween: 10,
+      loop: true,
+      pagination: { el: ".swiper-pagination", clickable: true },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  },
+
+  renderSizes(sizes) {
+    const list = Array.isArray(sizes) && sizes.length ? sizes : ["S", "M", "L"];
+    return list
+      .map((s) => {
+        const name = typeof s === "object" ? s.name : s;
+        return `<button class="size-btn ${
+          typeof s === "object" && s.available === false ? "disabled" : ""
+        }" data-size="${this.escapeHtml(name)}">${this.escapeHtml(
+          name
+        )}</button>`;
+      })
+      .join("");
+  },
+
+  renderColors(colors) {
+    const list =
+      Array.isArray(colors) && colors.length
+        ? colors
+        : [
+            { name: "أسود", code: "#000" },
+            { name: "أبيض", code: "#fff" },
+          ];
+    return list
+      .map((c) => {
+        const name = typeof c === "object" ? c.name : c;
+        const code = typeof c === "object" ? c.code : c;
+        return `<button class="color-btn" data-color="${this.escapeHtml(
+          name
+        )}" title="${this.escapeHtml(
+          name
+        )}" style="background:${this.escapeHtml(code)}"></button>`;
+      })
+      .join("");
+  },
 
   setupEventListeners() {
-    document.addEventListener("click", (e) => {
-      if (
-        e.target.id === "add-to-cart-btn" ||
-        e.target.closest("#add-to-cart-btn")
-      ) {
-        this.handleAddToCart();
-      }
-    });
-  }
-
-  setupOptionButtons() {
-    const sizeButtons = this.container.querySelectorAll(
-      ".size-btn:not(.disabled)"
-    );
-    sizeButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        this.selectSize(btn.dataset.size);
-        this.updateOptionButtons(sizeButtons, btn, "size-btn");
+    // size buttons
+    document.querySelectorAll(".size-btn").forEach((b) => {
+      b.addEventListener("click", () => {
+        if (b.classList.contains("disabled")) return;
+        document
+          .querySelectorAll(".size-btn")
+          .forEach((x) => x.classList.remove("active"));
+        b.classList.add("active");
       });
     });
 
-    const colorButtons = this.container.querySelectorAll(".color-btn");
-    colorButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        this.selectColor(btn.dataset.color);
-        this.updateOptionButtons(colorButtons, btn, "color-btn");
+    // color buttons
+    document.querySelectorAll(".color-btn").forEach((b) => {
+      b.addEventListener("click", () => {
+        document
+          .querySelectorAll(".color-btn")
+          .forEach((x) => x.classList.remove("active"));
+        b.classList.add("active");
       });
     });
 
-    if (sizeButtons.length === 1) {
-      sizeButtons[0].click();
-    }
-    if (colorButtons.length === 1) {
-      colorButtons[0].click();
-    }
-  }
+    // في product-details.js داخل setupEventListeners
+    const addBtn = document.getElementById("add-to-cart-btn");
+    if (addBtn) {
+      addBtn.addEventListener("click", (e) => {
+        const product = this.selectedProduct;
+        if (!product) return showNotification("لا يوجد منتج", "error");
+        if (product.inStock === false)
+          return showNotification("هذا المنتج غير متاح حالياً.", "error");
 
-  selectSize(size) {
-    this.selectedSize = size;
-    this.checkSelections();
-  }
+        const selectedSize =
+          document.querySelector(".size-btn.active")?.dataset.size || null;
+        const selectedColor =
+          document.querySelector(".color-btn.active")?.dataset.color || null;
 
-  selectColor(color) {
-    this.selectedColor = color;
-    this.checkSelections();
-  }
+        // استخدام الدالة الموحدة لإضافة المنتج
+        if (window.addToCart) {
+          window.addToCart(product, selectedSize, selectedColor);
+        } else {
+          // الطريقة الاحتياطية
+          const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+          const existingItemIndex = cart.findIndex(
+            (item) =>
+              item.productId === product.id &&
+              item.size === selectedSize &&
+              item.color === selectedColor
+          );
 
-  updateOptionButtons(buttons, selectedButton, className) {
-    buttons.forEach((btn) => btn.classList.remove("active"));
-    selectedButton.classList.add("active");
-  }
-
-  checkSelections() {
-    const addToCartBtn = document.getElementById("add-to-cart-btn");
-    if (!addToCartBtn) return;
-
-    const hasSize =
-      !this.product.sizes ||
-      this.product.sizes.length === 0 ||
-      this.selectedSize;
-    const hasColor =
-      !this.product.colors ||
-      this.product.colors.length === 0 ||
-      this.selectedColor;
-
-    addToCartBtn.disabled = !(hasSize && hasColor);
-  }
-
-  handleAddToCart() {
-    if (!this.selectedSize && this.product.sizes?.length > 0) {
-      showNotification("الرجاء اختيار المقاس أولاً", true);
-      return;
-    }
-
-    if (!this.selectedColor && this.product.colors?.length > 0) {
-      showNotification("الرجاء اختيار اللون أولاً", true);
-      return;
-    }
-
-    try {
-      const success = CartManager.addItem(
-        this.product,
-        this.selectedSize,
-        this.selectedColor
-      );
-
-      if (success) {
-        showNotification("تم إضافة المنتج إلى السلة بنجاح!");
-      } else {
-        showNotification("حدث خطأ أثناء إضافة المنتج إلى السلة", true);
-      }
-    } catch (error) {
-      console.error("Error adding to cart:", error);
-      showNotification("حدث خطأ أثناء إضافة المنتج إلى السلة", true);
-    }
-  }
-
-  initSwiper() {
-    if (typeof Swiper === "undefined") {
-      console.error("Swiper not loaded");
-      return;
-    }
-
-    // انتظر حتى يتم تحميل DOM بالكامل
-    setTimeout(() => {
-      try {
-        this.swiper = new Swiper(".product-swiper", {
-          loop: true,
-          pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-          },
-          navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-          },
-          slidesPerView: 1,
-          spaceBetween: 0,
-          centeredSlides: false,
-          autoHeight: false,
-          effect: "slide",
-
-          // إعدادات التحسين
-          resistance: true,
-          resistanceRatio: 0.85,
-
-          on: {
-            init: function () {
-              console.log("Swiper initialized successfully");
-              this.update();
-            },
-          },
-        });
-
-        // إعادة حساب الأبعاد
-        setTimeout(() => {
-          if (this.swiper) {
-            this.swiper.update();
-            this.swiper.slideTo(0);
+          if (existingItemIndex > -1) {
+            cart[existingItemIndex].quantity += 1;
+            showNotification("تم زيادة كمية المنتج في السلة", "success");
+          } else {
+            const imgSrc = this.getImageUrl(
+              product.images?.[0] || "./imgs/placeholder.webp"
+            );
+            cart.push({
+              productId: product.id,
+              name: product.name,
+              price: product.price || 0,
+              image: imgSrc,
+              size: selectedSize,
+              color: selectedColor,
+              quantity: 1,
+            });
+            showNotification("تمت إضافة المنتج إلى السلة", "success");
+            updateCartIcon()
           }
-        }, 300);
-      } catch (error) {
-        console.error("Error initializing Swiper:", error);
-      }
-    }, 100);
-  }
-
-  showError(message) {
-    if (this.container) {
-      this.container.innerHTML = `
-        <div class="product-error">
-          <i class="fa-solid fa-triangle-exclamation"></i>
-          <h2>حدث خطأ</h2>
-          <p>${message}</p>
-          <a href="../index.html#products" class="btn btn-primary">
-            العودة للمنتجات
-          </a>
-        </div>
-      `;
+          localStorage.setItem("cart", JSON.stringify(cart));
+        }
+      });
     }
-  }
+  },
 
-  showLoading(show = true) {
-    if (this.loadingElement) {
-      this.loadingElement.style.display = show ? "flex" : "none";
+  getImageUrl(image) {
+    if (!image) return "./imgs/placeholder.webp";
+    if (image.startsWith("http")) return image;
+    return `https://res.cloudinary.com/dxbelrmq1/image/upload/${image}`;
+  },
+
+  formatPrice(price) {
+    if (price === undefined || price === null) return "0";
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  },
+
+  escapeHtml(text = "") {
+    return String(text).replace(
+      /[&<>"']/g,
+      (m) =>
+        ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;",
+        }[m])
+    );
+  },
+
+  getQueryParam(name) {
+    return new URLSearchParams(window.location.search).get(name);
+  },
+
+  showLoading() {
+    const el = document.getElementById(SELECTORS.loadingId);
+    if (el) el.style.display = "flex";
+  },
+
+  hideLoading() {
+    const el = document.getElementById(SELECTORS.loadingId);
+    if (el) el.style.display = "none";
+  },
+
+  showError(msg) {
+    this.hideLoading();
+    const el = document.getElementById(SELECTORS.errorId);
+    if (el) {
+      el.style.display = "block";
+      const p = el.querySelector("p");
+      if (p) p.textContent = msg;
+    } else {
+      console.error(msg);
     }
-  }
-}
+  },
+};
 
-document.addEventListener("DOMContentLoaded", () => {
-  new ProductDetailsPage();
-});
-
-window.ProductDetailsPage = ProductDetailsPage;
+document.addEventListener("DOMContentLoaded", () => ProductDetails.init());
