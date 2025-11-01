@@ -419,6 +419,9 @@ header .search .search-btn:hover {
 }
 
 @media (max-width: 768px) {
+  body {
+    margin-top: 70px;
+  }
   header {
     padding-inline: 10px;
   }
