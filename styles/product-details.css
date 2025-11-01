@@ -176,7 +176,7 @@
 .whatsapp-order {
   width: 100%;
   padding: 1rem 2rem;
-  background: #25D366;
+  background: #25d366;
   color: var(--white);
   border: none;
   border-radius: var(--border-radius);
@@ -191,7 +191,7 @@
 }
 
 .whatsapp-order:hover {
-  background: #128C7E;
+  background: #128c7e;
   transform: translateY(-2px);
 }
 
@@ -238,8 +238,6 @@
 /* ===== SWIPER STYLES ===== */
 .swiper {
   width: 100%;
-  max-width: 500px;
-  height: 500px;
   border-radius: var(--border-radius);
   overflow: hidden;
   margin: 0 auto;
@@ -251,6 +249,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100px;
+  height: auto;
 }
 
 .swiper-slide img {
@@ -302,71 +302,60 @@
    Responsive Media Queries
 ===================================================== */
 
-/* للشاشات المتوسطة (أقل من 1024px) */
 @media (max-width: 1024px) {
   .product-content {
     gap: 2rem;
   }
-  
-  .swiper {
-    height: 450px;
-  }
-  
-  .gallery-main img {
-    height: 450px;
-  }
-}
 
-/* للشاشات الصغيرة (أقل من 768px) */
-@media (max-width: 768px) {
-  .product-details {
-    padding: 1rem;
-  }
-  
   .product-content {
     flex-direction: column;
     gap: 2rem;
   }
-  
+
+  .product-gallery {
+    margin: auto;
+  }
+
+  .product-info {
+    margin: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .product-details {
+    padding: 1rem;
+  }
+
   .product-gallery,
   .product-info {
     max-width: 100%;
   }
-  
+
   .product-title {
     font-size: 1.8rem;
   }
-  
+
   .product-price {
     font-size: 1.6rem;
   }
-  
-  .swiper {
-    height: 400px;
-    max-width: 100%;
-  }
-  
-  .gallery-main img {
-    height: 400px;
-  }
-  
+
   .size-btn {
     padding: 0.7rem 1rem;
     min-width: 55px;
     font-size: 0.9rem;
   }
-  
+
   .color-btn {
     width: 35px;
     height: 35px;
   }
-  
+
   .add-to-cart,
   .whatsapp-order {
     padding: 0.9rem 1.5rem;
     font-size: 1rem;
   }
-  
+
   .swiper-button-next,
   .swiper-button-prev {
     width: 40px !important;
@@ -374,67 +363,58 @@
   }
 }
 
-/* للشاشات الصغيرة جداً (أقل من 480px) */
 @media (max-width: 480px) {
   .product-details {
     padding: 0.5rem;
   }
-  
+
   .product-title {
     font-size: 1.5rem;
   }
-  
+
   .product-description {
     font-size: 1rem;
   }
-  
+
   .product-price {
     font-size: 1.4rem;
   }
-  
-  .swiper {
-    height: 300px;
-  }
-  
-  .gallery-main img {
-    height: 300px;
-  }
-  
+
   .size-options {
     gap: 0.5rem;
   }
-  
+
   .size-btn {
     padding: 0.6rem 0.8rem;
     min-width: 50px;
     font-size: 0.8rem;
   }
-  
+
   .color-btn {
     width: 30px;
     height: 30px;
   }
-  
+
   .product-specs {
     padding: 1rem;
   }
-  
+
   .specs-item {
     flex-direction: column;
     gap: 0.3rem;
     padding: 0.8rem 0;
   }
-  
+
   .specs-value {
     text-align: right;
   }
-  
+
   .add-to-cart,
   .whatsapp-order {
     padding: 0.8rem 1rem;
     font-size: 0.9rem;
   }
-  
+
   .swiper-button-next,
   .swiper-button-prev {
     width: 35px !important;
@@ -442,18 +422,9 @@
   }
 }
 
-/* للشاشات الكبيرة جداً (أكبر من 1440px) */
 @media (min-width: 1440px) {
   .product-content {
     max-width: 1400px;
-  }
-  
-  .swiper {
-    height: 550px;
-  }
-  
-  .gallery-main img {
-    height: 550px;
   }
 }
 
@@ -463,15 +434,7 @@
     min-height: auto;
     padding: 1rem;
   }
-  
-  .swiper {
-    height: 300px;
-  }
-  
-  .gallery-main img {
-    height: 300px;
-  }
-  
+
   .product-content {
     gap: 1.5rem;
   }
@@ -555,7 +518,7 @@
     transition: none;
     animation: none;
   }
-  
+
   .add-to-cart-success {
     animation: none;
   }
@@ -566,11 +529,11 @@
   .size-btn {
     border: 2px solid var(--text-primary);
   }
-  
+
   .color-btn {
     border: 3px solid var(--text-primary);
   }
-  
+
   .product-specs {
     border: 2px solid var(--text-primary);
   }

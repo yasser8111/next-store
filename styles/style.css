@@ -1,12 +1,12 @@
 /* =====================================================
-   🎨 Theme Variables
+    Theme Variables
 ===================================================== */
 :root {
   /* ---------------------- Brand / Palette ---------------------- */
-  --primary-color: #000000; /* اللون الأساسي */
-  --primary-variant: #ffffff; /* تباين اللون الأساسي */
-  --secondary-color: #535353; /* لون النص الثانوي */
-  --accent-color: #d64545; /* أحمر مريح للعين */
+  --primary-color: #000000;
+  --primary-variant: #ffffff;
+  --secondary-color: #535353;
+  --accent-color: #d64545;
   --accent-variant: #b33b3b;
 
   /* ---------------------- Semantic Colors ---------------------- */
@@ -95,8 +95,13 @@ button:active,
 button:focus,
 a:active,
 a:focus {
-  /* background-color: transparent !important; */
   outline: none !important;
+}
+
+a:active,
+button:active {
+  transform: scale(0.98);
+  transition: transform 0.1s;
 }
 
 .container {
@@ -288,7 +293,7 @@ header .search .search-btn:hover {
 .mobile-menu {
   display: none;
   position: fixed;
-  top: 70px;
+  top: 69px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -436,6 +441,80 @@ header .search .search-btn:hover {
 }
 
 /* =====================================================
+   header hero style
+===================================================== */
+
+.header-hero {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--dark-gray) 100%
+  );
+  color: var(--primary-variant);
+  padding: 5rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.header-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23ffffff" opacity="0.05"><path d="M500 50L550 30L600 50L650 30L700 50L750 30L800 50L850 30L900 50L950 30L1000 50L1000 100L0 100L0 50Z"/></svg>')
+    bottom center/cover no-repeat;
+  background-size: cover;
+  opacity: 0.2;
+}
+
+.header-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header-hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.header-hero p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+  .header-hero {
+    padding: 3rem 0;
+  }
+
+  .header-hero h1 {
+    font-size: 2rem;
+  }
+
+  .header-hero p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-hero h1 {
+    font-size: 1.6rem;
+  }
+
+  .header-hero p {
+    font-size: 0.7rem;
+  }
+}
+
+/* =====================================================
    Products Section
 ===================================================== */
 .products {
@@ -566,10 +645,10 @@ header .search .search-btn:hover {
     margin-bottom: 3rem;
   }
 
-.products-header {
+  .products-header {
     gap: 10px;
     margin-bottom: 30px;
-    overflow-x: visible; 
+    overflow-x: visible;
     padding-bottom: 0;
     justify-content: flex-start;
   }
@@ -626,8 +705,8 @@ header .search .search-btn:hover {
     padding: 10px 15px;
     font-size: 13px;
     min-width: 110px;
-    
-  flex: 1;
+
+    flex: 1;
   }
 
   .products-grid {
@@ -898,7 +977,7 @@ footer .container {
   }
 
   footer .container {
-    padding: 0 3rem 3rem 3rem; 
+    padding: 0 3rem 3rem 3rem;
   }
 
   .footer-col h3 {
@@ -990,6 +1069,6 @@ footer .container {
   cursor: pointer;
   opacity: 0;
   transform: translateX(100%);
-  transition: var(--transition-fast);
   border-radius: var(--border-radius);
+  transition: var(--transition);
 }

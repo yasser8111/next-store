@@ -2,152 +2,107 @@
    👕 Products Page Styles - Redesign
 ===================================================== */
 
-.products-hero {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-gray) 100%);
-    color: var(--primary-variant);
-    padding: 4rem 0;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.products-hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23ffffff" opacity="0.05"><path d="M500 50L550 30L600 50L650 30L700 50L750 30L800 50L850 30L900 50L950 30L1000 50L1000 100L0 100L0 50Z"/></svg>') bottom center/cover no-repeat;
-}
-
-.products-hero .container {
-    position: relative;
-    z-index: 1;
-}
-
-.products-hero h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    font-weight: 800;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-}
-
-.products-hero p {
-    font-size: 1.3rem;
-    opacity: 0.9;
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.6;
-    color: var(--light-gray);
-}
-
 .products-section {
-    padding: var(--gap-lg) 0;
-    background: var(--bg-primary);
-    min-height: 60vh;
-}
-
-/* =====================================================
-   🔍 Search Section - Redesign
-===================================================== */
-
-.products-header {
-    background: var(--bg-primary);
-    padding: 2rem 0;
-    margin-bottom: 2rem;
+  padding: var(--gap-lg) 0;
+  background: var(--bg-primary);
+  min-height: 60vh;
 }
 
 .search-main-container {
-    background: var(--bg-primary);
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-    width: 100%;
+  background: var(--bg-primary);
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
 }
 
 .search-box {
-    display: flex;
-    gap: 0;
-    align-items: stretch;
-    background: var(--bg-secondary);
-    border-radius: 12px;
-    box-shadow: var(--shadow-sm);
-    border: 2px solid var(--border-color);
-    transition: var(--transition);
-    overflow: hidden;
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  border: 2px solid var(--border-color);
+  transition: var(--transition);
+  overflow: hidden;
 }
 
 .search-box:focus-within {
-    border-color: var(--primary-color);
-    box-shadow: var(--shadow);
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow);
 }
 
 .search-input {
-    flex: 1;
-    padding: 1rem 1.5rem;
-    border: none;
-    background: transparent;
-    color: var(--text-primary);
-    font-size: 1.1rem;
-    outline: none;
-    font-family: inherit;
-    border-radius: 0;
-    transition: var(--transition);
+  flex: 1;
+  padding: 1rem 1.5rem;
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  outline: none;
+  font-family: inherit;
+  border-radius: 0;
+  transition: var(--transition);
 }
 
 .search-input::placeholder {
-    color: var(--text-secondary);
-    opacity: 0.7;
+  color: var(--text-secondary);
+  opacity: 0.7;
 }
 
 .search-input:focus {
-    background: var(--bg-paper);
+  background: var(--bg-paper);
 }
 
 .search-input:focus::placeholder {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 @media (max-width: 768px) {
-    .search-box {
-        flex-direction: row;
-        gap: 0;
-    }
-    
-    .search-input {
-        padding: 1rem;
-        font-size: 1rem;
-    }
+  .search-box {
+    flex-direction: row;
+    gap: 0;
+  }
+
+  .search-input {
+    padding: 1rem;
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
-    .products-header {
-        padding: 1.5rem 0;
-    }
-    
-    .search-input {
-        padding: 0.875rem 1rem;
-    }
+  .products-header {
+    padding: 1.5rem 0;
+  }
+
+  .search-input {
+    padding: 0.875rem 1rem;
+  }
 }
 
 .search-input:focus {
-    outline: none;
+  outline: none;
 }
 
 .search-main-container::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border-color), transparent);
-    opacity: 0;
-    transition: var(--transition);
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--border-color),
+    transparent
+  );
+  opacity: 0;
+  transition: var(--transition);
 }
 
 .search-main-container:focus-within::after {
-    opacity: 1;
+  opacity: 1;
 }

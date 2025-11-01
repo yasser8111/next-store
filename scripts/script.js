@@ -187,3 +187,31 @@ function initializeApp() {
 }
 
 document.addEventListener("DOMContentLoaded", initializeApp);
+
+
+class Modal {
+  constructor(modal) {
+    this.modal = modal;
+    this.focusableElements = modal.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    this.firstFocusable = this.focusableElements[0];
+    this.lastFocusable = this.focusableElements[this.focusableElements.length - 1];
+  }
+  
+  trapFocus(e) {
+    if (e.key === 'Tab') {
+      if (e.shiftKey) {
+        if (document.activeElement === this.firstFocusable) {
+          e.preventDefault();
+          this.lastFocusable.focus();
+        }
+      } else {
+        if (document.activeElement === this.lastFocusable) {
+          e.preventDefault();
+          this.firstFocusable.focus();
+        }
+      }
+    }
+  }
+}
