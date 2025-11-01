@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -24,227 +24,78 @@
     <!-- style css  -->
     <link rel="stylesheet" href="./styles/style.css" />
     <link rel="stylesheet" href="./styles/products.css" />
+    <link rel="stylesheet" href="./styles/home.css" />
 
-    <title>nextstore - التيشرتات</title>
-</head>
-<body>
-<header id="header"></header>
+    <title>nextstore - جميع المنتجات</title>
+  </head>
+  <body>
+    <header id="header"></header>
 
     <section class="products-hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>تيشرتات نكست</h1>
-                <p>اكتشف مجموعة التيشرتات المميزة التي تجمع بين الراحة والأناقة</p>
-            </div>
+      <div class="container">
+        <div class="hero-content">
+          <h1>جميع المنتجات</h1>
+          <p>اكتشف مجموعة التيشرتات المميزة التي تجمع بين الراحة والأناقة</p>
         </div>
+      </div>
     </section>
 
-    <section class="products-section">
-        <div class="container">
-            <div class="products-layout">
-                <!-- الشريط الجانبي للتصفية -->
-                <aside class="filters-sidebar">
-                    <div class="filters-header">
-                        <h3>التصفية</h3>
-                        <button class="clear-filters" id="clear-filters">مسح الكل</button>
-                    </div>
-
-                    <!-- تصفية حسب الفئة -->
-                    <div class="filter-group">
-                        <h4 class="filter-title">الفئة</h4>
-                        <div class="filter-options">
-                            <label class="filter-option">
-                                <input type="checkbox" name="category" value="all" checked>
-                                <span class="checkmark"></span>
-                                جميع التيشرتات
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="category" value="classic">
-                                <span class="checkmark"></span>
-                                كلاسيك
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="category" value="sport">
-                                <span class="checkmark"></span>
-                                رياضية
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="category" value="graphic">
-                                <span class="checkmark"></span>
-                                جرافيك
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="category" value="custom">
-                                <span class="checkmark"></span>
-                                مخصصة
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- تصفية حسب المقاس -->
-                    <div class="filter-group">
-                        <h4 class="filter-title">المقاس</h4>
-                        <div class="filter-options">
-                            <label class="filter-option">
-                                <input type="checkbox" name="size" value="S">
-                                <span class="checkmark"></span>
-                                Small (S)
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="size" value="M">
-                                <span class="checkmark"></span>
-                                Medium (M)
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="size" value="L">
-                                <span class="checkmark"></span>
-                                Large (L)
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="size" value="XL">
-                                <span class="checkmark"></span>
-                                X-Large (XL)
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="size" value="XXL">
-                                <span class="checkmark"></span>
-                                XX-Large (XXL)
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- تصفية حسب اللون -->
-                    <div class="filter-group">
-                        <h4 class="filter-title">اللون</h4>
-                        <div class="color-filters">
-                            <label class="color-option">
-                                <input type="checkbox" name="color" value="black">
-                                <span class="color-checkmark" style="background: #000;"></span>
-                                أسود
-                            </label>
-                            <label class="color-option">
-                                <input type="checkbox" name="color" value="white">
-                                <span class="color-checkmark" style="background: #fff; border: 1px solid #ddd;"></span>
-                                أبيض
-                            </label>
-                            <label class="color-option">
-                                <input type="checkbox" name="color" value="gray">
-                                <span class="color-checkmark" style="background: #808080;"></span>
-                                رمادي
-                            </label>
-                            <label class="color-option">
-                                <input type="checkbox" name="color" value="blue">
-                                <span class="color-checkmark" style="background: #007bff;"></span>
-                                أزرق
-                            </label>
-                            <label class="color-option">
-                                <input type="checkbox" name="color" value="red">
-                                <span class="color-checkmark" style="background: #dc3545;"></span>
-                                أحمر
-                            </label>
-                            <label class="color-option">
-                                <input type="checkbox" name="color" value="green">
-                                <span class="color-checkmark" style="background: #28a745;"></span>
-                                أخضر
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- تصفية حسب السعر -->
-                    <div class="filter-group">
-                        <h4 class="filter-title">السعر</h4>
-                        <div class="price-filter">
-                            <div class="price-inputs">
-                                <input type="number" id="min-price" placeholder="أقل سعر" min="0">
-                                <span>إلى</span>
-                                <input type="number" id="max-price" placeholder="أعلى سعر" min="0">
-                            </div>
-                            <button class="apply-price" id="apply-price">تطبيق</button>
-                        </div>
-                    </div>
-
-                    <!-- تصفية حسب التصنيف -->
-                    <div class="filter-group">
-                        <h4 class="filter-title">التصنيف</h4>
-                        <div class="filter-options">
-                            <label class="filter-option">
-                                <input type="checkbox" name="tag" value="new">
-                                <span class="checkmark"></span>
-                                جديد
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="tag" value="bestseller">
-                                <span class="checkmark"></span>
-                                الأكثر مبيعاً
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="tag" value="discount">
-                                <span class="checkmark"></span>
-                                خصم
-                            </label>
-                        </div>
-                    </div>
-                </aside>
-
-                <!-- المنطقة الرئيسية للمنتجات -->
-                <main class="products-main">
-                    <div class="products-header">
-                        <div class="products-info">
-                            <h2>جميع التيشرتات</h2>
-                            <p id="products-count">عرض <span>0</span> منتج</p>
-                        </div>
-                        <div class="products-controls">
-                            <div class="sort-by">
-                                <label for="sort-select">ترتيب حسب:</label>
-                                <select id="sort-select">
-                                    <option value="default">الإفتراضي</option>
-                                    <option value="price-low">السعر: من الأقل للأعلى</option>
-                                    <option value="price-high">السعر: من الأعلى للأقل</option>
-                                    <option value="name">الإسم: أ-ي</option>
-                                    <option value="newest">الأحدث</option>
-                                    <option value="bestseller">الأكثر مبيعاً</option>
-                                </select>
-                            </div>
-                            <div class="view-options">
-                                <button class="view-btn active" data-view="grid">
-                                    <i class="fa-solid fa-grid"></i>
-                                </button>
-                                <button class="view-btn" data-view="list">
-                                    <i class="fa-solid fa-list"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="products-grid" id="products-grid">
-                        <!-- سيتم ملؤها بواسطة JavaScript -->
-                        <div class="loading-products">
-                            <i class="fa-solid fa-spinner fa-spin"></i>
-                            <p>جاري تحميل المنتجات...</p>
-                        </div>
-                    </div>
-
-                    <div class="products-pagination" id="products-pagination">
-                        <!-- سيتم ملؤها بواسطة JavaScript -->
-                    </div>
-                </main>
+    <section class="products" id="products">
+      <div class="container">
+        <div class="products-header">
+          <div class="search-main-container">
+            <div class="search-box">
+              <input
+                type="text"
+                id="search-products"
+                placeholder="ابحث عن منتج..."
+                class="search-input"
+              />
             </div>
+          </div>
         </div>
+
+        <div class="products-grid" id="products-grid">
+          <!-- <div class="product-card customize">
+            <div class="pro-img">
+              <a href=""
+                ><img
+                  src="https://res.cloudinary.com/dxbelrmq1/image/upload/customize_qcgbab.webp"
+                  alt=""
+              /></a>
+            </div>
+            <div class="pro-ditals">
+              <div class="pro-name">صمم تشيرتك ...</div>
+              <div class="pro-price">قريبا</div>
+            </div>
+          </div> -->
+
+          <div
+            id="loading"
+            style="text-align: center; padding: 20px; display: none"
+          >
+            <p>جاري تحميل المنتجات...</p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="products-cta">
-        <div class="container">
-            <div class="cta-content">
-                <h2>لم تجد ما تبحث عنه؟</h2>
-                <p>صمم تيشيرتك الخاصة واجعلها تعبر عن شخصيتك بشكل فريد</p>
-                <a href="./customize.html" class="btn btn-primary">صمم تيشيرتك</a>
-            </div>
+    <section class="customize-cta">
+      <div class="container">
+        <div class="cta-content">
+          <h2>ألم تجد ما تبحث عنه؟</h2>
+          <p>صمم تيشيرتك بنفسك واجعلها تعبر عنك</p>
+          <a href="./customize.html" class="btn btn-primary"
+            >صمم تيشيرتك الآن</a
+          >
         </div>
+      </div>
     </section>
 
-<footer id="footer"></footer>
+    <footer id="footer"></footer>
+
     <!-- js  -->
     <script type="module" src="./scripts/products.js"></script>
     <script type="module" src="./scripts/script.js"></script>
-</body>
+  </body>
 </html>
