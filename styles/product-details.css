@@ -64,6 +64,32 @@
   margin-bottom: 1.5rem;
 }
 
+.product-status-badge {
+  background: var(--bg-paper);
+  width: 100px;
+  text-align: center;
+  border-radius: var(--border-radius);
+  padding: 5px 10px;
+}
+
+.product-status-badge.available {
+  color: var(--primary-variant);
+  background: var(--success-color);
+}
+
+.product-status-badge.coming-soon,
+.product-status-badge.pre-order {
+  color: var(--primary-variant);
+  background: var(--warning-color);
+}
+
+.product-status-badge.unknown,
+.product-status-badge.discontinued,
+.product-status-badge.out-of-stock {
+  color: var(--primary-variant);
+  background: var(--error-color);
+}
+
 .product-price {
   font-size: 2rem;
   font-weight: 700;

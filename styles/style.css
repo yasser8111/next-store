@@ -91,6 +91,7 @@ button {
   -webkit-user-select: none;
   user-select: none;
 }
+
 button:active,
 button:focus,
 a:active,
@@ -118,6 +119,29 @@ button:active {
   body {
     margin-top: 70px;
   }
+}
+/* =====================================================
+   Button Styles
+===================================================== */
+
+.btn-primary {
+  background: var(--accent-color);
+  color: var(--white);
+  border: none;
+  padding: 14px 32px;
+  border-radius: var(--border-radius);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background: var(--accent-variant);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
 }
 
 /* =====================================================
@@ -618,23 +642,15 @@ header .search .search-btn:hover {
   text-align: right;
 }
 
-.add-to-cart {
-  padding: 0.5rem 1rem;
-  background: var(--accent-color);
-  color: var(--white);
-  border-radius: 5px;
-  border: none;
-  text-decoration: none;
-  transition: var(--transition);
-  cursor: pointer;
-  margin-top: auto;
+.pro-description {
+  font-size: 14px;
+  color: var(--text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.add-to-cart:hover {
-  background-color: var(--accent-variant);
-}
-
-/* تحسينات للشاشات الصغيرة */
 @media (max-width: 1024px) {
   .products-grid {
     grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -669,6 +685,10 @@ header .search .search-btn:hover {
     gap: 15px;
   }
 
+  .product-card:hover {
+    transform: none;
+  }
+
   .pro-img {
     height: 180px;
   }
@@ -684,11 +704,6 @@ header .search .search-btn:hover {
   .pro-price {
     font-size: 1.3rem;
   }
-
-  .add-to-cart {
-    padding: 0.6rem 0.8rem;
-    font-size: 13px;
-  }
 }
 
 @media (max-width: 480px) {
@@ -699,7 +714,7 @@ header .search .search-btn:hover {
 
   .products-header {
     gap: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     flex-wrap: nowrap;
     justify-content: flex-start;
   }
@@ -734,9 +749,7 @@ header .search .search-btn:hover {
     font-size: 1.2rem;
     margin-bottom: 8px;
   }
-
-  .add-to-cart {
-    padding: 0.5rem 0.8rem;
+  .pro-description {
     font-size: 12px;
   }
 }

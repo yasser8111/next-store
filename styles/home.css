@@ -8,14 +8,12 @@
     var(--primary-color),
     var(--secondary-color)
   );
-  position: relative;
 }
 
 .hero .container {
   height: calc(100dvh - 80px);
   position: relative;
   z-index: 1;
-  overflow: hidden;
 }
 
 .hero .hero-content {
@@ -45,10 +43,10 @@
 
 .hero img {
   position: absolute;
-  top: -40%;
-  right: 80%;
   z-index: -1;
-  transform: translateX(50%) translateY(50%);
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
 }
 
 /* ======================
@@ -107,6 +105,7 @@
 @media (max-width: 768px) {
   .hero .container {
     height: calc(100dvh - 70px);
+    overflow: hidden;
   }
 
   .hero .hero-content {
@@ -128,38 +127,15 @@
   }
 
   .hero img {
-    top: -50%;
-    right: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
     opacity: 0.5 !important;
   }
 }
 
 /* =====================================================
-   🎯 Button Styles
-===================================================== */
-
-.btn-primary {
-  background: var(--accent-color);
-  color: var(--white);
-  border: none;
-  padding: 14px 32px;
-  border-radius: var(--border-radius);
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: var(--transition);
-  text-decoration: none;
-  display: inline-block;
-  font-weight: 600;
-}
-
-.btn-primary:hover {
-  background: var(--accent-variant);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow);
-}
-
-/* =====================================================
-   🎯 Banners Section Styles
+   Banners Section Styles
 ===================================================== */
 
 .Banners {
@@ -550,10 +526,18 @@
   text-align: left;
 }
 
-.mb-1 { margin-bottom: 1rem; }
-.mb-2 { margin-bottom: 2rem; }
-.mt-1 { margin-top: 1rem; }
-.mt-2 { margin-top: 2rem; }
+.mb-1 {
+  margin-bottom: 1rem;
+}
+.mb-2 {
+  margin-bottom: 2rem;
+}
+.mt-1 {
+  margin-top: 1rem;
+}
+.mt-2 {
+  margin-top: 2rem;
+}
 
 /* =====================================================
    🎯 Reduced Motion Support
@@ -570,7 +554,7 @@
     animation: none;
     transition: none;
   }
-  
+
   .hero .hero-content h1,
   .hero .hero-content p,
   .hero .hero-content .btn {
