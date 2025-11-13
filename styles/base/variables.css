@@ -197,7 +197,7 @@
   --transition-slow: all var(--transition-duration-slow) ease-in-out;
   --transition-pop: all var(--transition-duration-normal)
     cubic-bezier(0.68, -0.55, 0.27, 1.55);
-  --transition-header: all var(--transition-duration-fast) ease-in-out;
+  --transition-header: all var(--transition-duration-fast) ease-out;
 
   /* Animation Curves */
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);

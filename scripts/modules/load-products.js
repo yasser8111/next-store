@@ -1,5 +1,5 @@
 import { fetchProducts } from "../firebase/firestore.js";
-import { loading } from "../core/components.js";
+import { loading } from "../core/utils.js";
 
 /**
  * Fix image URL if it doesn't have a full path
