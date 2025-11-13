@@ -1,103 +1,70 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>جميع التيشيرتات | Next Store</title>
 
-    <!-- font awsome css  -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="./styles/main.css" />
+    <link rel="stylesheet" href="./styles/pages/products.css" />
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
       crossorigin="anonymous"
-      referrerpolicy="no-referrer"
     />
-
-    <!-- google fonts css  -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital@0;1&family=Noto+Kufi+Arabic:wght@100..900&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- style css  -->
-    <link rel="stylesheet" href="./styles/style.css" />
-    <link rel="stylesheet" href="./styles/products.css" />
-    <link rel="stylesheet" href="./styles/home.css" />
-
-    <title>nextstore - جميع المنتجات</title>
   </head>
+
   <body>
-    <header id="header"></header>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
 
-    <section class="header-hero">
-      <div class="container">
-        <div class="header-hero-content">
-          <h1>جميع المنتجات</h1>
-          <p>اكتشف مجموعة التيشرتات المميزة التي تجمع بين الراحة والأناقة</p>
-        </div>
-      </div>
-    </section>
+    <main class="container">
+      <!-- page title -->
+      <section class="page-header">
+        <h1>جميع التيشيرتات</h1>
+        <p>اكتشف مجموعتنا المتنوعة من التيشيرتات</p>
+      </section>
 
-    <section class="products" id="products">
-      <div class="container">
-        <div class="products-header">
-          <div class="search-main-container">
-            <div class="search-box">
-              <input
-                type="text"
-                id="search-products"
-                placeholder="ابحث عن منتج..."
-                class="search-input"
-              />
-            </div>
-          </div>
+      <!-- Products Filter -->
+      <section class="products-filter">
+        <!-- Search Bar -->
+        <div class="search-bar">
+          <input type="text" id="search-input" placeholder="ابحث عن منتج..." />
+          <button id="search-btn"><i class="fas fa-search"></i></button>
         </div>
 
+        <!-- Sort Filter -->
+        <div class="sort-filter">
+          <select id="sort-filter">
+            <option value="">الترتيب الافتراضي</option>
+            <option value="price-asc">السعر من الأقل للأعلى</option>
+            <option value="price-desc">السعر من الأعلى للأقل</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Products Grid -->
+      <section class="products-section">
         <div class="products-grid" id="products-grid">
-          <!-- <div class="product-card customize">
-            <div class="pro-img">
-              <a href=""
-                ><img
-                  src="https://res.cloudinary.com/dxbelrmq1/image/upload/customize_qcgbab.webp"
-                  alt=""
-              /></a>
-            </div>
-            <div class="pro-ditals">
-              <div class="pro-name">صمم تشيرتك ...</div>
-              <div class="pro-price">قريبا</div>
-            </div>
-          </div> -->
-
-          <div
-            id="products-loading"
-            class="products-loading"
-            style="display: none"
-          >
-            <i class="fa-solid fa-spinner fa-spin"></i>
-            <p>جاري تحميل المنتجات...</p>
-          </div>
+          <!-- Product Card -->
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
 
-    <section class="customize-cta">
-      <div class="container">
-        <div class="cta-content">
-          <h2>ألم تجد ما تبحث عنه؟</h2>
-          <p>صمم تيشيرتك بنفسك واجعلها تعبر عنك</p>
-          <a href="./customize.html" class="btn btn-primary"
-            >صمم تيشيرتك الآن</a
-          >
-        </div>
-      </div>
-    </section>
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
 
-    <footer id="footer"></footer>
-
-    <!-- js  -->
-    <script type="module" src="./scripts/products.js"></script>
-    <script type="module" src="./scripts/script.js"></script>
+    <!-- Scripts -->
+    <script type="module" src="./scripts/main.js"></script>
+    <script type="module" src="./scripts/pages/products-page.js"></script>
   </body>
 </html>

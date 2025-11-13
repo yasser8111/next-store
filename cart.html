@@ -1,116 +1,82 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>سلة التسوق | Next Store</title>
 
-    <!-- font awsome css  -->
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../../styles/main.css" />
+    <link rel="stylesheet" href="../../styles/pages/cart.css" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-
-    <!-- google fonts css  -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital@0;1&family=Noto+Kufi+Arabic:wght@100..900&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- style css  -->
-    <link rel="stylesheet" href="./styles/style.css" />
-    <link rel="stylesheet" href="./styles/cart.css" />
-
-    <title>nextstore - سلة التسوق</title>
   </head>
+
   <body>
-<header id="header"></header>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
 
-    <section class="cart-section">
-      <div class="container">
-        <div class="cart-header">
-          <h1>سلة التسوق</h1>
-          <p>إدارة مشترياتك ومتابعة الطلبات</p>
+    <!-- ===================== CART PAGE ===================== -->
+    <main class="cart-page container">
+      <h2 class="cart-title"><i class="fa-solid fa-cart-shopping"></i> سلة التسوق</h2>
+      <div id="discount-banner"></div>
+
+
+      <div class="cart-layout">
+        <!-- 🛒 CART ITEMS -->
+        <div class="cart-items-section">
+          <div id="cart-container" class="cart-items"></div>
         </div>
 
-        <div class="cart-content">
-          <div class="cart-items" id="cart-items">
-            <!-- سيتم ملؤها بواسطة JavaScript -->
-            <div class="empty-cart" id="empty-cart">
-              <i class="fa-solid fa-cart-shopping"></i>
-              <h3>سلة التسوق فارغة</h3>
-              <p>لم تقم بإضافة أي منتجات إلى سلة التسوق بعد</p>
-              <a href="./index.html" class="btn btn-primary">تسوق الآن</a>
-            </div>
-          </div>
+        <!-- 💰 CART SUMMARY -->
+        <aside class="cart-summary-section">
+  <h3>ملخص الطلب</h3>
 
-          <div class="cart-summary">
-            <div class="summary-card">
-              <h3>ملخص الطلب</h3>
+  <table class="summary-table">
+    <tr>
+      <td>المجموع الفرعي:</td>
+      <td id="subtotal">0</td>
+    </tr>
+    <tr>
+      <td>التوصيل:</td>
+      <td id="shipping">0</td>
+    </tr>
+    <tr>
+      <td>الخصم:</td>
+      <td id="discount">0</td>
+    </tr>
+    <tr class="summary-divider">
+      <td colspan="2"><hr /></td>
+    </tr>
+    <tr class="summary-total-row">
+      <td>المجموع النهائي:</td>
+      <td id="cart-total">0</td>
+    </tr>
+  </table>
 
-              <div class="summary-row">
-                <span>المجموع الجزئي:</span>
-                <span id="subtotal">0 ر.ي</span>
-              </div>
+  <button id="checkout-btn">إتمام الشراء</button>
+</aside>
 
-              <div
-                class="summary-row discount-info"
-                id="discount-info"
-                style="display: none"
-              >
-                <span>خصم 10%:</span>
-                <span id="discount-amount">0 ر.ي</span>
-              </div>
-
-              <div class="summary-row total">
-                <span>المجموع الكلي:</span>
-                <span id="total">0 ر.ي</span>
-              </div>
-
-              <div
-                class="discount-message"
-                id="discount-message"
-                style="display: none"
-              >
-                <i class="fa-solid fa-tag"></i>
-                <span>تهانينا! لقد حصلت على خصم 10%</span>
-              </div>
-
-              <div
-                class="remaining-message"
-                id="remaining-message"
-                style="display: none"
-              >
-                <i class="fa-solid fa-info-circle"></i>
-                <span
-                  >أنت تحتاج <strong id="remaining-amount">0 ر.ي</strong> إضافية
-                  للحصول على خصم 10%</span
-                >
-              </div>
-
-              <button class="checkout-btn" id="checkout-btn">
-                إتمام الشراء
-              </button>
-
-              <div class="continue-shopping">
-                <a href="./index.html"
-                  ><i class="fa-solid fa-arrow-right"></i> متابعة التسوق</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-    </section>
+    </main>
 
-<footer id="footer"></footer>
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
 
-    <!-- js  -->
-    <script type="module" src="./scripts/cart.js"></script>
-    <script type="module" src="./scripts/script.js"></script>
+    <!-- Scripts -->
+    <script type="module" src="../../scripts/main.js"></script>
+    <script type="module" src="../../scripts/pages/cart-page.js"></script>
   </body>
 </html>

@@ -1,138 +1,63 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Next Store</title>
 
-    <!-- font awsome css  -->
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="./styles/main.css" />
+    <link rel="stylesheet" href="./styles/pages/product-details.css" />
+
+    <!-- Google Fonts: Noto Kufi Arabic -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Swiper CSS -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+    />
+
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-..."
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-
-    <!-- google fonts css  -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital@0;1&family=Noto+Kufi+Arabic:wght@100..900&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- swiper css  -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
-
-    <!-- style css  -->
-    <link rel="stylesheet" href="./styles/style.css" />
-    <link rel="stylesheet" href="./styles/product-details.css" />
-    <link rel="stylesheet" href="./styles/home.css" />
-
-    <title>متجر نكست - تفاصيل المنتج</title>
   </head>
   <body>
-    <header id="header"></header>
+    <!-- Header will be loaded here -->
+    <div id="header-placeholder"></div>
 
-    <section class="product-details">
-      <div class="container">
-        <div id="product-details-container">
-          <!-- سيتم ملؤه بواسطة JavaScript -->
-          <div class="product-loading" id="product-loading">
-            <i class="fa-solid fa-spinner fa-spin"></i>
-            <p>جاري تحميل تفاصيل المنتج...</p>
-          </div>
-
-          <div class="product-error" id="product-error" style="display: none">
-            <i class="fa-solid fa-exclamation-triangle"></i>
-            <h2>حدث خطأ</h2>
-            <p>تعذر تحميل تفاصيل المنتج</p>
-            <a href="./index.html" class="btn btn-primary">العودة إلى المتجر</a>
-          </div>
+    <!-- ===================== PAGE CONTENT ===================== -->
+    <main class="container">
+      <section class="product-details-section">
+        <div id="product-details">
+          <!-- loud product's details here by JS -->
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="products" id="products">
-      <div class="container">
-        <div class="products-header">
-          <button class="active" onclick="filterProducts('all', event)">
-            كل المنتجات
-          </button>
-          <button onclick="filterProducts('new', event)">جديد</button>
-          <button onclick="filterProducts('bestseller', event)">
-            افضل مبيعا
-          </button>
+      <!-- ===================== Products Section ===================== -->
+      <section class="products-section">
+        <div class="products-grid">
+          <!-- Product Card -->
         </div>
+      </section>
+    </main>
 
-        <div class="products-grid" id="products-grid">
-          <div class="product-card customize">
-            <div class="pro-img">
-              <a href=""
-                ><img
-                  src="https://res.cloudinary.com/dxbelrmq1/image/upload/customize_qcgbab.webp"
-                  alt=""
-              /></a>
-            </div>
-            <div class="pro-ditals">
-              <div class="pro-name">صمم تشيرتك ...</div>
-              <div class="pro-price">قريبا</div>
-            </div>
-          </div>
+    <!-- Footer will be loaded here -->
+    <div id="footer-placeholder"></div>
 
-          <div
-            id="loading"
-            style="text-align: center; padding: 20px; display: none"
-          >
-            <p>جاري تحميل المنتجات...</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- ===================== Scripts ===================== -->
+    <script type="module" src="./scripts/main.js"></script>
+    <script type="module" src="./scripts/pages/product-details.js"></script>
 
-    <section class="Banners">
-      <div class="Banners-grid">
-        <div class="Banner">
-          <h2><strong>جودة</strong> لا تضاهى</h2>
-          <p>
-            التيشرتات المصممة بعناية من قماش عالي الجودة، توفر لك الراحة طوال
-            اليوم ونعومة تدوم طويلاً.
-            <img class="banner-img" src="./imgs/banner.png" alt="" />
-          </p>
-        </div>
-
-        <div class="Banner">
-          <h3>اصنع <strong>تصميمك الخاص</strong></h3>
-          <p>
-            اختر من بين مئات التصاميم العصرية أو صمم التيشرت الخاص بك لتعبّر عن
-            نفسك.
-          </p>
-          <br />
-          <a class="Banner-btn" href="#products">صمم تيشيرتك</a>
-        </div>
-
-        <div class="Banner">
-          <h3><strong>مناسب</strong> لكل مناسبة</h3>
-          <p>للكلية، للعمل، أو لنزهة عابرة... وجدنا لك التيشرت المثالي.</p>
-        </div>
-
-        <div class="Banner">
-          <h2><strong>عروض</strong> حصرية</h2>
-          <p>احصل على خصم 10% عند شرائك أكثر من 30الف ر.ي.</p>
-        </div>
-      </div>
-    </section>
-
-    <footer id="footer"></footer>
-
-    <!-- swiper js  -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-    <!-- js  -->
-    <script type="module" src="./scripts/product-details.js"></script>
-    <script type="module" src="./scripts/products.js"></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
   </body>
 </html>
