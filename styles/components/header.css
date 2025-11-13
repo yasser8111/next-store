@@ -40,9 +40,24 @@
   font-size: var(--text-sm);
 } */
 
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
 .logo img {
   width: 45px;
   height: auto;
+}
+
+.fallback-text {
+  display: none;
+  font-family: var(--font-ar);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--text-primary);
+  font-size: var(--text-xl);
+  line-height: var(--leading-tight);
 }
 
 /* ---------- Desktop Search ---------- */
@@ -232,8 +247,6 @@
   flex-direction: column;
   gap: var(--space-5);
 }
-
-
 
 /* ---------- Mobile Nav ---------- */
 .mobile-nav ul {

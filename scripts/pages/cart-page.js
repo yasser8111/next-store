@@ -1,4 +1,5 @@
-import { updateCartBadge, loading } from "../core/components.js";
+import { loading } from "../core/utils.js";
+import { updateCartBadge } from "../core/header.js";
 
 /* =====================================================
    CONSTANTS
@@ -72,7 +73,7 @@ function renderEmptyCart() {
   discountEl.textContent = "0";
   totalEl.textContent = "0";
   updateCartBadge();
-  updateDiscountBanner(0, 0); 
+  updateDiscountBanner(0, 0);
 }
 
 function renderCartItems(cart) {
@@ -83,7 +84,9 @@ function renderCartItems(cart) {
     itemEl.className = "cart-item";
 
     itemEl.innerHTML = `
-      <img src="https://res.cloudinary.com/dxbelrmq1/image/upload/${item.image}" alt="${item.name}">
+      <img src="https://res.cloudinary.com/dxbelrmq1/image/upload/${
+        item.image
+      }" alt="${item.name}">
       <div class="cart-info">
         <h3>${item.name}</h3>
         <p>السعر: ${item.price.toLocaleString()} ${item.currency}</p>
@@ -108,9 +111,7 @@ function renderSummary(subtotal, shipping, discount, total) {
   shippingEl.textContent = shipping.toLocaleString();
 
   discountEl.textContent =
-    discount > 0
-      ? `- ${discount.toLocaleString()}`
-      : `0`;
+    discount > 0 ? `- ${discount.toLocaleString()}` : `0`;
 
   totalEl.textContent = total.toLocaleString();
 

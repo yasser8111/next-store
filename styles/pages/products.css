@@ -46,4 +46,6 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+  max-width: 450px;
+  margin: auto;
 }

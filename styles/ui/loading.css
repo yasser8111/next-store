@@ -79,11 +79,11 @@
 .dot1 {
   transform: translateX(-20px);
   background: var(--color-neutral-900);
-  animation: collide 1s var(--ease-bounce) infinite;
+  animation: collide 1.5s var(--ease-in-out) infinite;
 }
 
 .dot2 {
   transform: translateX(20px);
-  background: var(--color-primary-400);
-  animation: collide-reverse 1s var(--ease-bounce) infinite;
+  background: var(--color-primary-500);
+  animation: collide-reverse 1.5s var(--ease-in-out) infinite;
 }

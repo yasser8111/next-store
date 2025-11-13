@@ -1,4 +1,5 @@
-import { updateCartBadge } from "../core/components.js";
+import { updateCartBadge } from "../core/header.js";
+
 // Get cart from localStorage
 export function getCart() {
   return JSON.parse(localStorage.getItem('cart')) || [];

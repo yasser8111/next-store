@@ -7,7 +7,7 @@
 .hero {
   position: relative;
   width: 100%;
-  height: calc(100vh - 80px);
+  height: calc(100dvh - var(--header-height));
   background-image: url("./../../assets/images/hero.avif");
   background-size: cover;
   background-position: center;

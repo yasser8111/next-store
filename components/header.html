@@ -2,13 +2,18 @@
   <div class="container header-inner">
     <!-- Logo -->
     <a href="./index.html" class="logo">
-      <!-- NEXT<span class="logo-accent">Store</span> -->
-       <img src="./assets/icons/Next.svg" alt="">
+      <img
+        src="./assets/icons/Next.svg"
+        alt="Logo"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+      />
+
+      <span class="fallback-text">NEXT</span>
     </a>
 
     <!-- Desktop Search -->
     <div class="search">
-      <input id="search-input" type="text" placeholder="ابحث عن منتجات..." />
+      <input id="search-input" type="text" placeholder="ابحث عن..." />
       <button class="search-btn" id="search-btn">
         <i class="fas fa-magnifying-glass"></i>
       </button>
@@ -19,7 +24,7 @@
       <ul>
         <li><a href="#">من نحن</a></li>
         <li><a href="#">العروض</a></li>
-        <li><a href="./products.html">المنتجات</a></li>
+        <li><a href="./products.html">تيشرتات</a></li>
         <li><a href="./index.html" class="active">الرئيسية</a></li>
       </ul>
     </nav>
@@ -46,7 +51,7 @@
       <!-- Mobile Search -->
 
       <div class="search-box">
-        <input id="search-input" type="text" placeholder="ابحث عن منتجات..." />
+        <input id="search-input" type="text" placeholder="ابحث عن..." />
         <button id="search-btn"><i class="fas fa-magnifying-glass"></i></button>
       </div>
 
@@ -54,7 +59,7 @@
       <nav class="mobile-nav">
         <ul>
           <li><a class="active" href="./index.html">الرئيسية</a></li>
-          <li><a href="./products.html">المنتجات</a></li>
+          <li><a href="./products.html">تيشرتات</a></li>
           <li><a href="#">العروض</a></li>
           <li><a href="#">اتصل بنا</a></li>
         </ul>
