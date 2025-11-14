@@ -16,7 +16,7 @@ export function updateCartBadge() {
 function handleHeaderScroll() {
   const header = document.querySelector("header");
   if (!header) return;
-  header.classList.toggle("top", window.scrollY >= 100);
+  header.classList.toggle("top", window.scrollY >= 70);
 }
 
 // ===================== Initialize Header Scripts =====================

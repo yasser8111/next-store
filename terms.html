@@ -31,7 +31,7 @@
     <!-- ===================== PAGE CONTENT ===================== -->
     <main class="container">
       <section class="terms-section">
-        <aside class="terms-sidebar">
+        <aside class="terms-sidebar" id="terms-sidebar">
           <nav>
             <h3>محتويات الصفحة</h3>
             <ul>
@@ -513,25 +513,6 @@
 
     <!-- ===================== Scripts ===================== -->
     <script type="module" src="./scripts/main.js"></script>
-    <script>
-      const sections = document.querySelectorAll(".terms-article");
-      const navLinks = document.querySelectorAll(".terms-sidebar a");
-
-      window.addEventListener("scroll", () => {
-        let current = "";
-        sections.forEach((section) => {
-          const sectionTop = section.offsetTop - 100;
-          if (scrollY >= sectionTop) {
-            current = section.getAttribute("id");
-          }
-        });
-        navLinks.forEach((link) => {
-          link.classList.remove("active");
-          if (link.getAttribute("href") === "#" + current) {
-            link.classList.add("active");
-          }
-        });
-      });
-    </script>
+    <script type="module" src="./scripts/pages/terms.js"></script>
   </body>
 </html>

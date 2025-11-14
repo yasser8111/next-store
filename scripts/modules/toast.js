@@ -1,3 +1,6 @@
+// Maximum number of toasts to show at once
+const MAX_TOASTS = 2;
+
 // Create toast container dynamically if not exists
 let toastContainer = document.getElementById("toast-container");
 if (!toastContainer) {
@@ -19,12 +22,17 @@ export function showToast(message, type = "success", duration = 3000, link = nul
   const toast = document.createElement("div");
   toast.className = `toast ${type}`;
   toast.textContent = message;
-  
+
   if (link) {
     toast.style.cursor = "pointer";
     toast.addEventListener("click", () => {
       window.location.href = link;
     });
+  }
+
+  // Remove oldest toast if exceeding max
+  if (toastContainer.children.length >= MAX_TOASTS) {
+    toastContainer.children[0].remove();
   }
 
   toastContainer.appendChild(toast);

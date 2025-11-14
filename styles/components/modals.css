@@ -1,0 +1,26 @@
+/* ===================== Mobile Top Bar ===================== */
+.back-to-top {
+  display: none;
+  position: fixed;
+  bottom: var(--space-1);
+  right: -100px;
+  background: var(--surface-primary);
+  padding: var(--space-3) var(--space-4);
+  font-size: 1rem;
+  z-index: var(--z-50);
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-lg);
+  margin: var(--space-2);
+  transition: var(--transition-pop);
+}
+
+.back-to-top.show {
+  right: 0;
+}
+
+@media (max-width: 768px) {
+  .back-to-top {
+    display: flex;
+  }
+}

@@ -1,5 +1,23 @@
 import { initHeader } from "./header.js";
 
+// ==================== Back To Top ============================
+
+export function backtotop(threshold = 500) {
+  let backtotop = document.querySelector(".back-to-top");
+
+  if (!backtotop) {
+    backtotop = document.createElement("a");
+    backtotop.href = "#";
+    backtotop.className = "back-to-top";
+    backtotop.innerHTML = `<i class="fa-solid fa-caret-up"></i>`;
+    document.body.appendChild(backtotop); 
+  }
+
+  window.addEventListener("scroll", () => {
+    backtotop.classList.toggle("show", window.scrollY >= threshold);
+  });
+}
+
 // ===================== Setup Loader ==========================
 export function loading(show = true, parent = null) {
   let loader = document.getElementById("page-loader");
@@ -33,14 +51,11 @@ export function loadHTML(selectorId, filePath) {
   const placeholder = document.getElementById(selectorId);
   if (!placeholder) return;
 
-  loading(true);
-
   fetch(filePath)
     .then((response) => response.text())
     .then((data) => {
       placeholder.innerHTML = data;
       if (selectorId === "header-placeholder") initHeader();
-      loading(false);
     })
     .catch((err) => {
       console.error(`Failed to load ${filePath}:`, err);

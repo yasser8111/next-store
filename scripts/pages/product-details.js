@@ -77,8 +77,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectedSizeBtn = document.querySelector(".size-btn.selected");
     const selectedSize = selectedSizeBtn ? selectedSizeBtn.dataset.size : null;
 
+    if (product.sizes && product.sizes.length > 0 && !selectedSize) {
+      showToast("يرجى اختيار المقاس أولاً!", "warning", 4000);
+      return;
+    }
+
     addToCart(product, selectedSize);
-    showToast("تمت إضافة المنتج إلى السلة بنجاح!", "success", 4000, "./cart.html");
+    showToast(
+      "تمت إضافة المنتج إلى السلة بنجاح!",
+      "success",
+      4000,
+      "./cart.html"
+    );
   });
 
   // Initialize Swiper

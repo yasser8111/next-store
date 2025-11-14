@@ -101,7 +101,7 @@
     BlinkMacSystemFont, sans-serif;
   --font-mono: "SF Mono", Monaco, "Cascadia Mono", monospace;
   --font-en: "Poppins", sans-serif;
-  --font-ar: "Noto Kufi Arabic", sans-serif; /* أو Cairo / Almarai / Noto Kufi Arabic */
+  --font-ar: "Noto Kufi Arabic", sans-serif; /* Cairo / Almarai / Noto Kufi Arabic */
 
   /* Font Sizes */
   --text-xs: 0.75rem; /* 12px */
@@ -204,6 +204,7 @@
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --pop: cubic-bezier(0.68, -0.55, 0.27, 1.55);
 
   /* ==================== Z-INDEX SYSTEM ==================== */
 
@@ -223,7 +224,8 @@
   --z-popover: 1060;
   --z-tooltip: 1070;
   --z-toast: 1080;
-  --z-max: 1090;
+  --z-header: 1090;
+  --z-max: 9999;
 
   /* ==================== BREAKPOINTS ==================== */
 

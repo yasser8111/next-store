@@ -9,7 +9,7 @@
   right: 0;
   height: var(--header-height);
   background: var(--surface-primary);
-  z-index: var(--z-max);
+  z-index: var(--z-header);
   display: flex;
   align-items: center;
   transition: var(--transition-header);
@@ -25,20 +25,6 @@
 }
 
 /* ---------- Logo ---------- */
-/* .logo {
-  font-family: var(--font-ar);
-  font-weight: var(--font-weight-extrabold);
-  color: var(--text-primary);
-  font-size: var(--text-xl);
-  text-decoration: none;
-  line-height: var(--leading-tight);
-}
-
-.logo-accent {
-  color: var(--color-primary-500);
-  margin-left: var(--space-1);
-  font-size: var(--text-sm);
-} */
 
 .logo {
   display: flex;
@@ -122,7 +108,6 @@
 
 .main-nav a:hover {
   background: var(--bg-secondary);
-  color: var(--color-primary-500);
 }
 
 .main-nav a.active {
@@ -151,7 +136,6 @@
 
 .icon-btn:hover {
   background: var(--bg-secondary);
-  color: var(--color-primary-500);
 }
 
 .cart-badge {
@@ -291,7 +275,7 @@
   border: none;
   opacity: 0;
   pointer-events: none;
-  transition: var(--transition-fast) ;
+  transition: var(--transition-fast);
   z-index: var(--z-10);
 }
 
@@ -334,9 +318,9 @@
   .icon-btn {
     font-size: var(--text-2xl);
   }
-
-  .container {
-    padding: 0 var(--space-3);
+  .icon-btn:hover {
+    color: var(--text-primary);
+    background: transparent;
   }
 }
 
