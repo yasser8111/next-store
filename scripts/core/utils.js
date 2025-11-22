@@ -10,7 +10,7 @@ export function backtotop(threshold = 500) {
     backtotop.href = "#";
     backtotop.className = "back-to-top";
     backtotop.innerHTML = `<i class="fa-solid fa-caret-up"></i>`;
-    document.body.appendChild(backtotop); 
+    document.body.appendChild(backtotop);
   }
 
   window.addEventListener("scroll", () => {

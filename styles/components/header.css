@@ -154,6 +154,10 @@
   border: var(--border-width-2) solid var(--bg-primary);
 }
 
+.cart-badge.big {
+  width: 25px;
+}
+
 .icon-btn:hover .cart-badge {
   color: var(--bg-secondary);
   border-color: var(--bg-secondary);
@@ -214,6 +218,8 @@
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  border-radius: var(--radius-lg);
+  margin: var(--space-2);
   transition: var(--transition-header);
 }
 
@@ -293,11 +299,6 @@
     height: 45px;
   }
 
-  .site-header.top .mobile-drawer {
-    border-radius: var(--radius-lg);
-    margin: var(--space-2);
-  }
-
   .search,
   .main-nav {
     display: none;
@@ -329,10 +330,7 @@
     font-size: 1.05rem;
   }
 
-  .mobile-drawer {
-    width: 100%;
-  }
-
+  .mobile-drawer,
   .site-header.top .mobile-drawer {
     width: calc(100% - var(--space-4));
   }

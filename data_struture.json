@@ -1,0 +1,51 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "ProductName",
+      "price": 150,
+      "currency": "YER",
+      "description": "A high-quality electronic product.",
+      "mainImage": "mainImage",
+      "hoverImage": "hoverImage",
+      "galleryImages": ["Image1", "Image2"],
+
+      "sizes": {
+        "S": 10,
+        "M": 5,
+        "L": 0,
+        "XL": 2,
+        "XXL": 2,
+        "XXXL": 2
+      },
+
+      "isAvailable": true,
+      "createdAt": "2025-01-01T12:00:00Z"
+    }
+  ],
+  "orders": [
+    {
+      "userName": "",
+      "userPhone": "",
+      "userAddress": "",
+      "location": {
+        "area": "",
+        "other": "",
+        "details": ""
+      },
+      "items": [
+        {
+          "productId": "",
+          "name": "",
+          "quantity": 1,
+          "selectedSize": "S",
+          "price": 0
+        }
+      ],
+      "totalAmount": 0,
+      "currency": "YER",
+      "status": "pending",
+      "createdAt": ""
+    }
+  ]
+}

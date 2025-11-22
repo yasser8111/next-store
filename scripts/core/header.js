@@ -1,3 +1,5 @@
+import { showToast } from "../modules/toast.js";
+
 // ===================== Update Cart Badge =====================
 export function updateCartBadge() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -5,10 +7,22 @@ export function updateCartBadge() {
 
   if (!badge) return;
 
-  if (cart.length === 0) badge.style.display = "none";
-  else {
-    badge.style.display = "flex";
-    badge.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+  const totalQty = cart.reduce((total, item) => total + item.quantity, 0);
+
+  if (totalQty === 0) {
+    badge.style.display = "none";
+    return;
+  }
+
+  // Show badge
+  badge.style.display = "flex";
+  badge.textContent = totalQty;
+
+  // Add/remove big class
+  if (totalQty >= 10) {
+    badge.classList.add("big");
+  } else {
+    badge.classList.remove("big");
   }
 }
 

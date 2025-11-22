@@ -1,4 +1,9 @@
 import { loadProducts } from "../modules/load-products.js";
+import { loading } from "../core/utils.js";
+
+/* =====================================================
+   DOM ELEMENTS
+===================================================== */
 
 const productsGrid = document.getElementById("products-grid");
 const searchInput = document.getElementById("search-input");

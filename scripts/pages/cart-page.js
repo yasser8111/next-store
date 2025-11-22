@@ -4,7 +4,6 @@ import { updateCartBadge } from "../core/header.js";
 /* =====================================================
    CONSTANTS
 ===================================================== */
-const SHIPPING_COST = 2000;
 const DISCOUNT_THRESHOLD = 35000;
 const DISCOUNT_RATE = 0.1;
 
@@ -13,9 +12,9 @@ const DISCOUNT_RATE = 0.1;
 ===================================================== */
 const cartContainer = document.getElementById("cart-container");
 const subtotalEl = document.getElementById("subtotal");
-const shippingEl = document.getElementById("shipping");
 const discountEl = document.getElementById("discount");
 const totalEl = document.getElementById("cart-total");
+const summarySection = document.querySelector(".cart-summary-section");
 
 /* =====================================================
    MAIN RENDER FUNCTION
@@ -31,13 +30,12 @@ function renderCart() {
     return;
   }
 
-  let subtotal = calculateSubtotal(cart);
+  const subtotal = calculateSubtotal(cart);
   const discount = calculateDiscount(subtotal);
-  const shipping = cart.length > 0 ? SHIPPING_COST : 0;
-  const total = subtotal + shipping - discount;
+  const total = subtotal - discount;
 
   renderCartItems(cart);
-  renderSummary(subtotal, shipping, discount, total);
+  renderSummary(subtotal, discount, total);
   attachCartEvents();
   updateCartBadge();
 
@@ -67,13 +65,17 @@ function calculateDiscount(subtotal) {
    RENDERING FUNCTIONS
 ===================================================== */
 function renderEmptyCart() {
-  cartContainer.innerHTML = `<p class="empty-cart">سلتك فارغة حالياً</p>`;
+  cartContainer.innerHTML = `
+    <p class="empty-cart"> سلتك فارغة حالياً </p>
+    <a href="index.html" class="empty-cart-btn "> تسوق الآن </a>
+  `;
   subtotalEl.textContent = "0";
-  shippingEl.textContent = "0";
   discountEl.textContent = "0";
   totalEl.textContent = "0";
   updateCartBadge();
-  updateDiscountBanner(0, 0);
+  updateDiscountBanner(0);
+
+  if (summarySection) summarySection.style.display = "none";
 }
 
 function renderCartItems(cart) {
@@ -106,26 +108,23 @@ function renderCartItems(cart) {
   });
 }
 
-function renderSummary(subtotal, shipping, discount, total) {
+function renderSummary(subtotal, discount, total) {
   subtotalEl.textContent = subtotal.toLocaleString();
-  shippingEl.textContent = shipping.toLocaleString();
-
   discountEl.textContent =
-    discount > 0 ? `- ${discount.toLocaleString()}` : `0`;
-
+    discount > 0 ? `- ${discount.toLocaleString()}` : "0";
   totalEl.textContent = total.toLocaleString();
 
-  // تحديث شريط الخصم العلوي
-  updateDiscountBanner(subtotal, discount);
+  updateDiscountBanner(subtotal);
+
+  if (summarySection) summarySection.style.display = "block";
 }
 
 /* =====================================================
    DISCOUNT BANNER
 ===================================================== */
-function updateDiscountBanner(subtotal, discount) {
+function updateDiscountBanner(subtotal) {
   const banner = document.getElementById("discount-banner");
-
-  if (!banner) return; // في حال لم يكن العنصر موجود
+  if (!banner) return;
 
   if (subtotal >= DISCOUNT_THRESHOLD) {
     banner.textContent = "تم تطبيق خصم 10٪ على طلبك!";

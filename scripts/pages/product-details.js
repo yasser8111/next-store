@@ -12,35 +12,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Product status
   const statusHTML =
-    product.status === "available"
-      ? `<p class="price"><span class="currency">${product.currency}</span>${product.price}</p>`
+    product.isAvailable
+      ? `<p class="price"><span class="currency">${product.currency}</span>${product.price.toLocaleString()}</p>`
       : `<p class="status">غير متوفر حالياً</p>`;
 
   // Size options
   let sizesHTML = "";
-  if (product.sizes && product.sizes.length > 0) {
+  const availableSizes = product.sizes ? Object.keys(product.sizes) : [];
+  if (availableSizes.length > 0) {
     sizesHTML = `<div class="sizes-container">
       <p>اختر المقاس:</p>
       <div class="sizes-buttons">
-        ${product.sizes
-          .map(
-            (size) =>
-              `<button class="size-btn" data-size="${size}">${size}</button>`
-          )
+        ${availableSizes
+          .map((size) => {
+            const quantity = product.sizes[size];
+            // إذا المنتج غير متاح أو الكمية صفر، يكون الزر معطل
+            const disabled = !product.isAvailable || quantity === 0 ? "disabled" : "";
+            return `<button class="size-btn" data-size="${size}" ${disabled}>
+                      ${size}
+                    </button>`;
+          })
           .join("")}
       </div>
     </div>`;
   }
 
   // Swiper images
+  const allImages = [product.mainImage, product.hoverImage, ...(product.galleryImages || [])];
   const imagesHTML = `
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
-        ${product.images
+        ${allImages
+          .filter(Boolean)
           .map(
             (img) => `<div class="swiper-slide">
-                    <img src="https://res.cloudinary.com/dxbelrmq1/image/upload/${img}" alt="${product.name}" />
-                  </div>`
+                        <img src="https://res.cloudinary.com/dxbelrmq1/image/upload/${img}" alt="${product.name}" />
+                      </div>`
           )
           .join("")}
       </div>
@@ -59,13 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="d-product-info">
         <h1>${product.name}</h1>
         ${statusHTML}
-        <p class="description">${
-          product.description || "لا يوجد وصف لهذا المنتج"
-        }</p>
+        <p class="description">${product.description || "لا يوجد وصف لهذا المنتج"}</p>
         ${sizesHTML}
-        <button class="btn-add-to-cart" ${
-          product.status !== "available" ? "disabled" : ""
-        }>
+        <button class="btn-add-to-cart" ${!product.isAvailable ? "disabled" : ""}>
           أضف إلى السلة
         </button>
       </div>
@@ -74,10 +77,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const addToCartBtn = document.querySelector(".btn-add-to-cart");
   addToCartBtn.addEventListener("click", () => {
+    if (!product.isAvailable) return; // لا يسمح بإضافة المنتج إذا غير متاح
+
     const selectedSizeBtn = document.querySelector(".size-btn.selected");
     const selectedSize = selectedSizeBtn ? selectedSizeBtn.dataset.size : null;
 
-    if (product.sizes && product.sizes.length > 0 && !selectedSize) {
+    if (availableSizes.length > 0 && !selectedSize) {
       showToast("يرجى اختيار المقاس أولاً!", "warning", 4000);
       return;
     }
@@ -105,6 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const sizeButtons = document.querySelectorAll(".size-btn");
   sizeButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
+      if (btn.disabled) return; // يمنع اختيار المقاس إذا كان الزر معطل
       sizeButtons.forEach((b) => b.classList.remove("selected"));
       btn.classList.add("selected");
     });

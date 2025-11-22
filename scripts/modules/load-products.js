@@ -3,8 +3,6 @@ import { loading } from "../core/utils.js";
 
 /**
  * Fix image URL if it doesn't have a full path
- * @param {string} url - Original image path
- * @returns {string} - Fixed full URL
  */
 function fixImageUrl(url) {
   if (!url) return "https://res.cloudinary.com/dxbelrmq1/image/upload/default.jpg";
@@ -14,10 +12,6 @@ function fixImageUrl(url) {
 
 /**
  * Load products into a grid with optional filters and sorting
- * @param {Object} options
- * @param {string} options.containerSelector - CSS selector for products grid
- * @param {string} [options.searchTerm] - Filter by name
- * @param {string} [options.sort] - Sorting method ("price-asc" | "price-desc")
  */
 export async function loadProducts({
   containerSelector = ".products-grid",
@@ -57,23 +51,25 @@ export async function loadProducts({
 
       card.innerHTML = `
         <div class="product-image">
-          <img src="${fixImageUrl(product.images[0])}" alt="${product.name}" />
+          <img src="${fixImageUrl(product.mainImage)}" alt="${product.name}" />
+
           ${
-            product.images[1]
-              ? `<img class="hover-img" src="${fixImageUrl(
-                  product.images[1]
-                )}" alt="${product.name}" />`
+            product.hoverImage
+              ? `<img class="hover-img" src="${fixImageUrl(product.hoverImage)}" alt="${product.name}" />`
               : ""
           }
         </div>
+
         <div class="product-info">
           <h3>${product.name}</h3>
+
           <div class="product-bottom">
             ${
-              product.status === "available"
+              product.isAvailable
                 ? `<p class="price"><span class="currency">${product.currency}</span>${product.price.toLocaleString()}</p>`
                 : `<p class="coming-soon">قريباً</p>`
             }
+
             <a href="#" class="icon-add-to-cart" onclick="event.stopPropagation()">
               <i class="fas fa-shopping-cart"></i>
             </a>
@@ -89,6 +85,7 @@ export async function loadProducts({
       container.appendChild(card);
     });
   } catch (err) {
+    loading(false, container);
     console.error("Failed to load products:", err);
     container.innerHTML = `<p class="error-msg">حدث خطأ أثناء تحميل المنتجات</p>`;
   } finally {

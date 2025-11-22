@@ -209,7 +209,26 @@
   text-align: center;
   font-size: var(--text-lg);
   color: var(--text-secondary);
-  margin-block: var(--space-12);
+  margin-top: var(--space-12);
+}
+
+.empty-cart-btn{
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-primary-600);
+  color: var(--text-on-primary);
+  border: none;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-base);
+  cursor: pointer;
+  transition: var(--transition-normal);
+  border-radius: var(--radius-sm);
+  margin:auto;
+  margin-bottom: var(--space-12);
+}
+
+.empty-cart-btn:hover {
+  background: var(--color-primary-700);
+  box-shadow: var(--shadow-md);
 }
 
 /* ===================== DISCOUNT BANNER ===================== */
