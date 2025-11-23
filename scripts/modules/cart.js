@@ -2,53 +2,57 @@ import { updateCartBadge } from "../core/header.js";
 
 // Get cart from localStorage
 export function getCart() {
-  return JSON.parse(localStorage.getItem('cart')) || [];
+  return JSON.parse(localStorage.getItem("cart")) || [];
 }
 
 // Save cart to localStorage
 export function saveCart(cart) {
-  localStorage.setItem('cart', JSON.stringify(cart));
+  localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-// Add to cart 
+// Add to cart (fixed for new DB structure)
 export function addToCart(product, size) {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const cart = getCart();
 
   const cartItem = {
-    id: product.id,
+    productId: product.id,
     name: product.name,
     price: product.price,
     currency: product.currency,
-    size: size,
-    image: product.images[0],
+    selectedSize: size || null,
+    image: product.mainImage, // FIXED
     quantity: 1
   };
 
-  const existingItemIndex = cart.findIndex(
-    item => item.id === cartItem.id && item.size === cartItem.size
+  // Check if item already in cart (same product + same size)
+  const existingIndex = cart.findIndex(
+    item => item.productId === cartItem.productId && item.selectedSize === cartItem.selectedSize
   );
 
-  if (existingItemIndex > -1) {
-    cart[existingItemIndex].quantity += 1;
+  if (existingIndex !== -1) {
+    cart[existingIndex].quantity += 1;
   } else {
     cart.push(cartItem);
   }
 
-  localStorage.setItem("cart", JSON.stringify(cart));
+  saveCart(cart);
   updateCartBadge();
 }
 
 // Remove product from cart
 export function removeFromCart(productId, size = null) {
   let cart = getCart();
-  cart = cart.filter(item => !(item.id === productId && item.size === size));
+  cart = cart.filter(item => !(item.productId === productId && item.selectedSize === size));
   saveCart(cart);
 }
 
 // Update quantity
 export function updateQuantity(productId, size, quantity) {
   const cart = getCart();
-  const index = cart.findIndex(item => item.id === productId && item.size === size);
+  const index = cart.findIndex(
+    item => item.productId === productId && item.selectedSize === size
+  );
+
   if (index !== -1) {
     cart[index].quantity = quantity;
     saveCart(cart);
