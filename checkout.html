@@ -39,9 +39,53 @@
           <input
             type="text"
             id="customer-name"
-            placeholder="اكتب اسمك هنا"
+            placeholder="أدخل الاسم الرباعي"
             required
           />
+        </div>
+
+        <div class="form-group">
+          <label for="customer-phone">رقم الهاتف</label>
+          <input
+            type="tel"
+            id="customer-phone"
+            placeholder="05xxxxxxxx"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="customer-city">المدينة / المنطقة</label>
+          <select id="customer-city" required>
+            <option value="" disabled selected>اختر المدينة</option>
+            <option value="المكلا">المكلا</option>
+            <option value="القطن">القطن</option>
+            <option value="سيئون">سيئون</option>
+            <option value="الشحر">الشحر</option>
+            <option value="تريم">تريم</option>
+            <option value="أخرى">أخرى...</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="custom-city-group" style="display: none">
+          <label for="custom-city">أضف مدينة جديدة</label>
+          <input type="text" id="custom-city" placeholder="اكتب اسم المدينة" />
+        </div>
+
+        <div class="form-group">
+          <label for="customer-address">العنوان التفصيلي</label>
+          <textarea
+            id="customer-address"
+            placeholder="الشارع – الحي – تفاصيل إضافية"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="customer-note">ملاحظات</label>
+          <textarea
+            id="customer-note"
+            placeholder="اكتب ملاحظاتك هنا (اختياري)"
+          ></textarea>
         </div>
 
         <div class="form-group">

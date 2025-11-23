@@ -91,7 +91,9 @@ function renderCartItems(cart) {
     itemEl.className = "cart-item";
 
     itemEl.innerHTML = `
-      <img src="https://res.cloudinary.com/dxbelrmq1/image/upload/${item.image}" alt="${item.name}">
+      <img src="https://res.cloudinary.com/dxbelrmq1/image/upload/${
+        item.image
+      }" alt="${item.name}">
 
       <div class="cart-info">
         <h3>${item.name}</h3>
@@ -121,7 +123,8 @@ function renderCartItems(cart) {
 ================================ */
 function renderSummary(subtotal, discount, total) {
   subtotalEl.textContent = subtotal.toLocaleString();
-  discountEl.textContent = discount > 0 ? `- ${discount.toLocaleString()}` : "0";
+  discountEl.textContent =
+    discount > 0 ? `- ${discount.toLocaleString()}` : "0";
   totalEl.textContent = total.toLocaleString();
 
   updateDiscountBanner(subtotal);
@@ -152,17 +155,23 @@ function updateDiscountBanner(subtotal) {
    EVENTS
 ================================ */
 function attachCartEvents() {
-  document.querySelectorAll(".increase").forEach((btn) =>
-    btn.addEventListener("click", () => updateQuantity(btn.dataset.index, 1))
-  );
+  document
+    .querySelectorAll(".increase")
+    .forEach((btn) =>
+      btn.addEventListener("click", () => updateQuantity(btn.dataset.index, 1))
+    );
 
-  document.querySelectorAll(".decrease").forEach((btn) =>
-    btn.addEventListener("click", () => updateQuantity(btn.dataset.index, -1))
-  );
+  document
+    .querySelectorAll(".decrease")
+    .forEach((btn) =>
+      btn.addEventListener("click", () => updateQuantity(btn.dataset.index, -1))
+    );
 
-  document.querySelectorAll(".remove-btn").forEach((btn) =>
-    btn.addEventListener("click", () => removeItem(btn.dataset.index))
-  );
+  document
+    .querySelectorAll(".remove-btn")
+    .forEach((btn) =>
+      btn.addEventListener("click", () => removeItem(btn.dataset.index))
+    );
 }
 
 function updateQuantity(index, change) {
@@ -186,3 +195,16 @@ function removeItem(index) {
    INIT
 ================================ */
 document.addEventListener("DOMContentLoaded", renderCart);
+
+const checkoutBtn = document.getElementById("checkout-btn");
+if (checkoutBtn) {
+  checkoutBtn.addEventListener("click", () => {
+    const cart = getCart();
+    if (!cart.length) {
+      alert("سلتك فارغة! لا يمكن الانتقال لإتمام الطلب.");
+      return;
+    }
+    saveCart(cart);
+    window.location.href = "checkout.html";
+  });
+}
