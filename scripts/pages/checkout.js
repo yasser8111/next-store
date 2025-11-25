@@ -2,7 +2,9 @@
 // CHECKOUT PAGE LOGIC
 // =====================================================
 
-// عناصر DOM
+import { fixImageUrl } from "../modules/load-products.js";
+
+// DOM
 const orderNumberInput = document.getElementById("order-number");
 const cartItemsContainer = document.getElementById("cart-items");
 const cartTotalEl = document.getElementById("cart-total");
@@ -15,17 +17,22 @@ const customCityInput = document.getElementById("custom-city");
 const addressInput = document.getElementById("customer-address");
 const noteInput = document.getElementById("customer-note");
 
-// توليد رقم الطلب العشوائي
+// =====================================================
+// توليد رقم الطلب
+// =====================================================
 const randomOrderNumber = "NX-" + Math.floor(100000 + Math.random() * 900000);
 orderNumberInput.value = randomOrderNumber;
 
-// دالة لجلب السلة من localStorage
+// =====================================================
+// جلب السلة
+// =====================================================
 function getCart() {
-  return JSON.parse(localStorage.getItem("cart"));
+  const cart = JSON.parse(localStorage.getItem("cart"));
+  return Array.isArray(cart) ? cart : [];
 }
 
 // =====================================================
-// إظهار حقل "أخرى" للمدينة
+// إظهار حقل "أخرى"
 // =====================================================
 citySelect.addEventListener("change", () => {
   if (citySelect.value === "أخرى") {
@@ -37,10 +44,11 @@ citySelect.addEventListener("change", () => {
 });
 
 // =====================================================
-// عرض السلة وحساب الإجمالي
+// عرض المنتجات في السلة
 // =====================================================
 function renderCartSummary() {
-  const cart = getCart(); // جلب السلة في كل مرة
+  const cart = getCart();
+
   if (cart.length === 0) {
     cartItemsContainer.innerHTML = "<p>السلة فارغة.</p>";
     cartTotalEl.textContent = "0 ر.س";
@@ -51,32 +59,41 @@ function renderCartSummary() {
   cartItemsContainer.innerHTML = "";
 
   cart.forEach((item) => {
+    const itemTotal = item.price * item.quantity;
+    total += itemTotal;
+
     const div = document.createElement("div");
     div.classList.add("cart-item");
 
     div.innerHTML = `
-      <span>${item.name} × ${item.quantity}</span>
-      <span>${item.price * item.quantity} ر.س</span>
+      <img src="${
+        fixImageUrl(item.mainImage) || fixImageUrl(item.image)
+      }" class="cart-img" />
+
+      <div class="cart-info">
+        <strong>${item.name}</strong>
+        <p>الكمية: ${item.quantity}</p>
+        <p>المقاس: ${item.size || "-"}</p>
+      </div>
+
+      <div class="cart-price">
+        ${itemTotal} ر.س
+      </div>
     `;
 
-    total += item.price * item.quantity;
     cartItemsContainer.appendChild(div);
   });
 
   cartTotalEl.textContent = `${total} ر.س`;
 }
 
-// استدعاء عند تحميل الصفحة
 renderCartSummary();
 
 // =====================================================
-// استدعاء createOrder من قاعدة البيانات
+// إرسال الطلب لقاعدة البيانات
 // =====================================================
 import { createOrder } from "../modules/orders.js";
 
-// =====================================================
-// زر تأكيد الطلب: رفع الطلب + فتح واتساب بدون رسالة
-// =====================================================
 document
   .getElementById("confirm-order-btn")
   .addEventListener("click", async () => {
@@ -89,26 +106,21 @@ document
 
     const city = selectedCity === "أخرى" ? customCity : selectedCity;
 
-    // التحقق من البيانات المطلوبة
     if (!name || !phone || !city || !address) {
       alert("يرجى تعبئة جميع البيانات المطلوبة.");
       return;
     }
 
-    const cart = getCart(); // جلب السلة عند الضغط
-
-    if (!cart.length) {
-      alert("سلتك فارغة! لا يمكن تأكيد الطلب.");
+    const cart = getCart();
+    if (cart.length === 0) {
+      alert("السلة فارغة! لا يمكن تأكيد الطلب.");
       return;
     }
 
-    // حساب الإجمالي
     let total = 0;
     cart.forEach((item) => (total += item.price * item.quantity));
 
-    // تجهيز بيانات الطلب طبق الهيكل الجديد
     const orderData = {
-      orderNumber: randomOrderNumber,
       userName: name,
       userPhone: phone,
       userAddress: address,
@@ -131,17 +143,12 @@ document
       createdAt: new Date().toISOString(),
     };
 
-    // رفع الطلب إلى قاعدة البيانات
     const success = await createOrder(orderData);
     if (!success) {
-      alert("حدث خطأ أثناء إرسال الطلب. حاول مرة أخرى.");
+      alert("حدث خطأ أثناء إرسال الطلب.");
       return;
     }
 
-    // رقم المتجر للواتساب (غيّره لاحقًا)
     const whatsappNumber = "966500000000";
-
-    // فتح واتساب بدون رسالة
-    const whatsappURL = `https://wa.me/${whatsappNumber}`;
-    window.open(whatsappURL, "_blank");
+    window.open(`https://wa.me/${whatsappNumber}`, "_blank");
   });

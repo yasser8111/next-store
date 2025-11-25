@@ -1,4 +1,5 @@
-{
+[
+  // database structure
   "products": [
     {
       "id": "1",
@@ -48,4 +49,31 @@
       "createdAt": ""
     }
   ]
-}
+
+// cart structure
+
+[
+  {
+    "id": "1",
+    "name": "ProductName",
+    "price": 150,
+    "currency": "YER",
+    "mainImage": "main.jpg",
+    "hoverImage": "hover.jpg",
+    "galleryImages": ["img1.jpg", "img2.jpg"],
+    "selectedSize": "M",
+    "quantity": 2
+  },
+  {
+    "id": "2",
+    "name": "Another Product",
+    "price": 200,
+    "currency": "YER",
+    "mainImage": "main2.jpg",
+    "hoverImage": "hover2.jpg",
+    "galleryImages": [],
+    "selectedSize": "S",
+    "quantity": 1
+  }
+]
+]
