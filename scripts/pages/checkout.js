@@ -149,6 +149,6 @@ document
       return;
     }
 
-    const whatsappNumber = "966500000000";
+    const whatsappNumber = "967770583685";
     window.open(`https://wa.me/${whatsappNumber}`, "_blank");
   });
