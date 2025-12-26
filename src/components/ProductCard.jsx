@@ -8,7 +8,6 @@ const ProductCard = ({ product }) => {
       to={`/product/${product.id}`}
       className="block bg-gray-100 dark:bg-gray-800 rounded-2xl p-2 active:scale-99 transition-all md:hover:-translate-y-1 cursor-pointer sm:p-4 group relative"
     >
-      {/* Image Container */}
       <div className="relative aspect-square overflow-hidden rounded-xl sm:rounded-2xl">
         <img
           src={fixImageUrl(product.mainImage)}
@@ -32,20 +31,25 @@ const ProductCard = ({ product }) => {
           {product.name}
         </h3>
 
-        <div className="flex items-center justify-between mt-auto gap-2">
+        <div className="flex  items-center  justify-between mt-auto gap-2">
           {!product.isAvailable ? (
-            <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-[10px] font-bold bg-rose-100 dark:bg-rose-500/10 text-rose-600 dark:text-rose-400">
+            <span
+              className="flex items-center justify-center gap-1.5 
+                w-6 h-6 p-0 sm:w-auto sm:h-auto sm:px-3 sm:py-1 
+                rounded-full sm:rounded-xl 
+                text-[10px] font-bold bg-rose-100 dark:bg-rose-500/10 text-rose-600 dark:text-rose-400"
+            >
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
               </span>
-              نفدت الكمية
+
+              <span className="hidden sm:inline">نفدت الكمية</span>
             </span>
           ) : (
             <div />
           )}
 
-          {/* السعر */}
           <div className="flex flex-col items-end">
             <span className="text-lg sm:text-xl font-black text-gray-900 dark:text-white">
               {product.price}

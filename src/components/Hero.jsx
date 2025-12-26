@@ -12,7 +12,7 @@ const HeroSection = () => {
             <h1 className="text-4xl sm:text-6xl md:text-8xl font-black text-gray-900 dark:text-white leading-[1.1] mb-6">
               تيشيرت يعبّر عنك
               <br />
-              قبل ما تتكلم.
+              قبل ما تتكلم
             </h1>
 
             {/* النص الوصفي: تحسين التوزيع في الشاشات الصغيرة */}
