@@ -6,9 +6,8 @@ const BackButton = () => {
 
   return (
     <button
-      title="رجوع"
       onClick={() => navigate(-1)}
-      className="group flex items-center justify-center w-10 h-10 bg-gray-100 dark:bg-gray-800 hover:text-black dark:hover:text-white rounded-xl transition-all cursor-pointer"
+      className="group flex items-center gap-2 px-4 h-10 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white rounded-xl transition-all cursor-pointer w-fit"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +15,7 @@ const BackButton = () => {
         viewBox="0 0 24 24"
         strokeWidth={2.5}
         stroke="currentColor"
-        className="w-5 h-5 text-gray-600 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white transition-all duration-300"
+        className="w-5 h-5 transition-all duration-300 group-hover:translate-x-1"
       >
         <path
           strokeLinecap="round"
@@ -24,6 +23,8 @@ const BackButton = () => {
           d="M8.25 4.5l7.5 7.5-7.5 7.5"
         />
       </svg>
+      
+      <span className="text-sm font-bold">رجوع</span>
     </button>
   );
 };

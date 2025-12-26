@@ -10,7 +10,7 @@ const DetailsSkeleton = () => (
     className="container mx-auto max-w-screen-lg lg:py-12 px-4 sm:px-8 animate-pulse"
     dir="rtl"
   >
-    <div className="w-10 h-10 bg-gray-200 dark:bg-gray-800 rounded-xl mb-5"></div>
+    <div className="w-22 h-10 bg-gray-200 dark:bg-gray-800 rounded-xl mb-5"></div>
     <div className="grid grid-cols-1 md:grid-cols-12 gap-5 mt-5 items-start">
       <div className="md:col-span-6">
         <div className="aspect-square w-full bg-gray-200 dark:bg-gray-800 rounded-[1em] md:rounded-[2rem]"></div>
