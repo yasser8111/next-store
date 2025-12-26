@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital@0;1&family=Audiowide&family=Cairo:wght@200..1000&family=Playwrite+CA:wght@100..400&display=swap");
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-cairo: "Cairo", sans-serif;
+}
+
+@layer base {
+  html,
+  body {
+    font-family: var(--font-cairo);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-cairo);
+  }
+}
+
+button:active,
+a:active {
+  transform: scale(0.95);
+}
