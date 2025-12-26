@@ -47,7 +47,7 @@ const Header = () => {
         </div>
 
         {/* Actions (Dark Mode & Mobile Toggle) */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4.5">
           <button
             title="تغير المود"
             onClick={() => setDarkMode(!darkMode)}
