@@ -4,18 +4,22 @@ import { Link } from "react-router-dom";
 const HeroSection = () => {
   return (
     <section className="relative flex items-center overflow-hidden transition-colors duration-300">
-      <div className="container mx-auto px-6 py-12 relative z-10 max-w-screen-xl">
-        <div className="flex flex-col md:flex-row-reverse items-center justify-between gap-12">
-          <div className="w-full text-right">
-            <h1 className="text-3xl sm:text-6xl md:text-8xl font-black text-gray-900 dark:text-white leading-tight mb-6">
-              .تيشيرت يعبّر عنك
-              <br/>
-               .قبل ما تتكلم
+      <div className="container mx-auto px-4 sm:px-6 py-8 md:py-20 relative z-10 max-w-screen-xl">
+        <div className="flex flex-col items-center md:items-end justify-between gap-8 md:gap-12">
+          
+          <div className="w-full text-center md:text-right">
+            {/* العنوان: تصغير الحجم قليلاً في الجوال ليتناسب مع الشاشة */}
+            <h1 className="text-4xl sm:text-6xl md:text-8xl font-black text-gray-900 dark:text-white leading-[1.1] mb-6">
+              تيشيرت يعبّر عنك
+              <br />
+              قبل ما تتكلم.
             </h1>
-            <div className="my-4 inline-flex flex-wrap items-center gap-2  pr-4 py-2 rounded-l-xl">
-              <p className="text-xs sm:text-lg md:text-xl font-bold text-gray-500 dark:text-gray-400">
+
+            {/* النص الوصفي: تحسين التوزيع في الشاشات الصغيرة */}
+            <div className="my-6 inline-flex items-center justify-center md:justify-start gap-2 py-2 rounded-xl flex-wrap">
+              <p className="text-sm sm:text-lg md:text-xl font-bold text-gray-500 dark:text-gray-400 leading-relaxed">
                 عرض خاص! اشتري بأكثر من
-                <span className="text-black dark:text-white mx-1 text-2xl">
+                <span className="text-black dark:text-white mx-1 text-xl sm:text-2xl font-black">
                   35,000
                 </span>
                 ريال واحصل على خصم
@@ -26,16 +30,17 @@ const HeroSection = () => {
               </p>
             </div>
 
-            <div className="flex gap-4 justify-end">
+            {/* الأزرار: منع w-full واستخدام w-fit للتوسط في الجوال */}
+            <div className="flex flex-row justify-center md:justify-end">
               <Link
-              to="/products"
-                href="#products"
-                className="px-8 py-4 bg-gray-900 dark:bg-white dark:text-gray-900 text-white font-bold rounded-2xl transition-all cursor-pointer"
+                to="/products"
+                className="w-fit px-10 py-4 bg-gray-900 dark:bg-white dark:text-gray-900 text-white font-bold rounded-2xl transition-all active:scale-95 cursor-pointer shadow-xl"
               >
                 ابدأ التسوق
               </Link>
             </div>
           </div>
+          
         </div>
       </div>
     </section>
