@@ -6,7 +6,7 @@ const ProductCard = ({ product }) => {
   return (
     <Link
       to={`/product/${product.id}`}
-      className="block bg-gray-100 dark:bg-gray-800 rounded-2xl p-2 active:scale-99 transition-all md:hover:-translate-y-1 cursor-pointer sm:p-4 group relative"
+      className="block rounded-2xl p-3 sm:p-4 active:scale-99 transition-all cursor-pointer group relative hover:bg-gray-50 dark:hover:bg-gray-800/50 border border-transparent hover:border-gray-100 dark:hover:border-gray-800"
     >
       <div className="relative aspect-square overflow-hidden rounded-xl sm:rounded-2xl">
         <img

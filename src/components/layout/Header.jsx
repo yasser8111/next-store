@@ -21,7 +21,7 @@ const Header = () => {
   ];
 
   return (
-    <nav className="fixed top-0 z-50 w-full bg-white dark:bg-gray-900 dark:border-gray-800 duration-300">
+    <nav className="fixed top-0 z-50 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-all duration-300">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between max-w-screen-xl">
         {/* Logo */}
         <Link

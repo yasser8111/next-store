@@ -1,10 +1,10 @@
 import React from "react";
-import { STORE_INFO } from "../../utils/constants"
+import { STORE_INFO } from "../../utils/constants";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-white dark:bg-gray-900 py-12 transition-colors duration-300">
+    <footer className="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 py-12 transition-colors duration-300">
       <div className="container mx-auto px-6 max-w-screen-xl">
         <div
           className="grid grid-cols-1 md:grid-cols-3 gap-10 text-right"

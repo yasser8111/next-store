@@ -5,12 +5,40 @@
 
 @theme {
   --font-cairo: "Cairo", sans-serif;
+
+  --animate-shine: shine 1.5s infinite linear;
+
+  @keyframes shine {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  --animate-fade-in-up: fade-in-up 0.8s ease-out forwards;
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 @layer base {
-  html,
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     font-family: var(--font-cairo);
+    @apply antialiased selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black;
   }
 
   h1,
