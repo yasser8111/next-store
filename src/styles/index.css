@@ -38,7 +38,7 @@
 
   body {
     font-family: var(--font-cairo);
-    @apply antialiased selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black;
+    /* @apply antialiased selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black; */
   }
 
   h1,

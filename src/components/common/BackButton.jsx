@@ -23,8 +23,8 @@ const BackButton = () => {
           d="M8.25 4.5l7.5 7.5-7.5 7.5"
         />
       </svg>
-      
-      <span className="text-sm font-bold">رجوع</span>
+
+      <span className="font-black text-lg">رجوع</span>
     </button>
   );
 };
